@@ -270,9 +270,6 @@ export default function AutomariWebsite() {
   const handleSurveyChange = (questionId: string, value: any) => {
     setSurveyData((prev) => ({ ...prev, [questionId]: value }))
   }
-
-  const handleSurveySubmit = () => {
-    setSurveySubmitted(true)
     // Here you would typically send the data to your backend
     console.log("Survey Data:", surveyData)
   }
