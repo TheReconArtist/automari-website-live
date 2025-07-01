@@ -813,7 +813,7 @@ export default function AutomariWebsite() {
               >
                 <Phone className="h-6 w-6 text-red-400" />
                 <div className="text-left">
-                  <div className="text-sm text-slate-400">Call Mike</div>
+                  <div className="text-sm text-slate-400">Text</div>
                   <div className="text-lg font-semibold text-white">561-201-4365</div>
                 </div>
               </motion.a>
