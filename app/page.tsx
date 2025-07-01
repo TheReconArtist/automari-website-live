@@ -711,13 +711,13 @@ export default function AutomariWebsite() {
                     </Button>
 
                     {isLastStep ? (
-                      <Button
-                        onClick={handleSurveySubmit}
-                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
-                      >
-                        <Send className="mr-2 h-4 w-4" />
-                        Submit Assessment
-                      </Button>
+                     <Button
+  onClick={handleSurveySubmit}
+  className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+>
+  <Send className="mr-2 h-4 w-4" />
+  Submit Assessment
+</Button>
                     ) : (
                       <Button
                         onClick={() => setSurveyStep(surveyStep + 1)}
