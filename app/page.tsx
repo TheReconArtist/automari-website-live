@@ -316,12 +316,12 @@ export default function AutomariWebsite() {
                 <span>561-201-4365</span>
               </motion.a>
               <motion.a
-                href="mailto:contact@automari.ai"
+                href="mailto:ccontactautomari@gmail.com"
                 className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
                 whileHover={{ scale: 1.05 }}
               >
                 <Mail className="h-4 w-4" />
-                <span>contact@automari.ai</span>
+                <span>contactautomari@gmail.com</span>
               </motion.a>
             </div>
 
@@ -356,12 +356,12 @@ export default function AutomariWebsite() {
                   <span>561-201-4365</span>
                 </motion.a>
                 <motion.a
-                  href="mailto:contact@automari.ai"
+                  href="mailto:contactautomari@gmail.com"
                   className="flex items-center space-x-2 text-blue-400"
                   whileTap={{ scale: 0.95 }}
                 >
                   <Mail className="h-4 w-4" />
-                  <span>contact@automari.ai</span>
+                  <span>contactautomari@gmail.com</span>
                 </motion.a>
               </div>
             </motion.div>
@@ -814,7 +814,7 @@ export default function AutomariWebsite() {
               </motion.a>
 
               <motion.a
-                href="mailto:contact@automari.ai"
+                href="mailto:contactautomari@gmail.com"
                 className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-600/20 to-blue-800/20 backdrop-blur-sm border border-blue-500/30 rounded-2xl hover:border-blue-400/50 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -822,7 +822,7 @@ export default function AutomariWebsite() {
                 <Mail className="h-6 w-6 text-blue-400" />
                 <div className="text-left">
                   <div className="text-sm text-slate-400">Email us</div>
-                  <div className="text-lg font-semibold text-white">contact@automari.ai</div>
+                  <div className="text-lg font-semibold text-white">contactautomari@gmail.com</div>
                 </div>
               </motion.a>
             </div>
