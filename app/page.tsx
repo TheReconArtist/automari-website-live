@@ -140,20 +140,20 @@ const testimonials = [
   },
   {
     name: "Jennifer Thompson",
-    business: "Thompson Legal Services",
+    business: "Anonymous",
     location: "Boca Raton, FL",
     rating: 5,
     review:
-      "We went with Automari's email management system and it handles 80% of our client inquiries automatically. Just as was represented to me during their discovery meeting, it's like having a 24/7 assistant. Our productivity has skyrocketed since working with Automari.",
+      "We went with Automari's email management system and it handles almost 80% of our client inquiries automatically. Just as was represented to me during our discovery meeting, it's like having a 24/7 assistant. Our productivity has skyrocketed since working with Automari.",
     avatar: "JT",
   },
   {
     name: "David Chen",
-    business: "Chen's Restaurant Group",
+    business: "Chen's Kosher Mgmt.",
     location: "West Palm Beach, FL",
     rating: 5,
     review:
-      "The inventory management AI has saved us thousands in waste and prevented stockouts. Mike understood our unique needs and delivered beyond expectations. Highly recommend!",
+      "The inventory management AI has saved us thousands in waste and prevented stockouts. Automari understood our unique needs and delivered beyond expectations. Highly recommend!",
     avatar: "DC",
   },
   {
@@ -162,7 +162,7 @@ const testimonials = [
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "I'm old fashioned and Ai has been a bit intimidating for me however, Working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
+      "I'm old fashioned and Ai has been a bit intimidating for me however, working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
     avatar: "MG",
   },
 ]
