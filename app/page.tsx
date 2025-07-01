@@ -706,22 +706,24 @@ export default function AutomariWebsite() {
                       onClick={() => setSurveyStep(Math.max(0, surveyStep - 1))}
                       disabled={surveyStep === 0}
                       className="border-slate-600 text-slate-300 hover:bg-slate-700"
-                    >
-                      Previous
-                    </Button>
-
-                    {isLastStep ? (
-                     <Button
-  onClick={handleSurveySubmit}
-  className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
->
-  <Send className="mr-2 h-4 w-4" />
-  Submit Assessment
-</Button>
-                  const handleSurveySubmit = async () => {
-  const formData = new FormData();
-  formData.append("answers", JSON.stringify(surveyAnswers));
-
+                  
+  <Button
+    onClick={handleSurveySubmit}
+    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+  >
+    <Send className="mr-2 h-4 w-4" />
+    Submit Assessment
+  </Button>
+) : (
+  <Button
+    onClick={() => setSurveyStep(surveyStep + 1)}
+    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+  >
+    Next
+    <ArrowRight className="ml-2 h-4 w-4" />
+  </Button>
+)}
+                    
   try {
     const response = await fetch("https://formspree.io/f/mrbkjoav", {
       method: "POST",
@@ -738,6 +740,9 @@ export default function AutomariWebsite() {
     alert("There was a problem submitting the form.");
   }
 };
+                    
+  return (
+    <>
                     ) : (
                       <Button
                         onClick={() => setSurveyStep(surveyStep + 1)}
