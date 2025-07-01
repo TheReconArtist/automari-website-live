@@ -864,12 +864,12 @@ export default function AutomariWebsite() {
                   <span className="text-lg">561-201-4365</span>
                 </motion.a>
                 <motion.a
-                  href="mailto:contact@automari.ai"
+                  href="mailto:contactautomari@gmail.com"
                   className="flex items-center justify-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
                   whileHover={{ scale: 1.05 }}
                 >
                   <Mail className="h-5 w-5" />
-                  <span className="text-lg">contact@automari.ai</span>
+                  <span className="text-lg">contactautomari@gmail.com</span>
                 </motion.a>
                 <div className="flex items-center justify-center space-x-2 text-slate-400">
                   <MapPin className="h-5 w-5" />
@@ -908,7 +908,7 @@ export default function AutomariWebsite() {
               <span>•</span>
               <span>Powered by Innovation</span>
               <span>•</span>
-              <span>Driven by Excellence</span>
+              <span>Driven by God</span>
             </div>
           </div>
         </div>
