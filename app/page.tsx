@@ -718,6 +718,26 @@ export default function AutomariWebsite() {
   <Send className="mr-2 h-4 w-4" />
   Submit Assessment
 </Button>
+                  const handleSurveySubmit = async () => {
+  const formData = new FormData();
+  formData.append("answers", JSON.stringify(surveyAnswers));
+
+  try {
+    const response = await fetch("https://formspree.io/f/mrbkjoav", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      setSurveySubmitted(true);
+    } else {
+      alert("Form submission failed!");
+    }
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("There was a problem submitting the form.");
+  }
+};
                     ) : (
                       <Button
                         onClick={() => setSurveyStep(surveyStep + 1)}
