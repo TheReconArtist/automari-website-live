@@ -121,12 +121,12 @@ const aiAgents = [
 
 const testimonials = [
   {
-    name: "Sarah Martinez",
-    business: "Miami Beach Boutique",
-    location: "Miami Beach, FL",
+    name: "Terrance Hall",
+    business: "Miami Beach Paint",
+    location: "Miami, FL",
     rating: 5,
     review:
-      "Mike and the Automari team transformed our customer service completely. Our response time went from hours to minutes, and customer satisfaction increased by 40%. Incredible results!",
+      "I met Mike on a job down in Miami and as kind and informative as he was, he saw dents in my company. As a painter, He hooked me and my company up with a sheduler and honestly.. Our response time went from hours to minutes, and customer satisfaction increased like crazy because I was even given tips and tricks along the way for my business. Incredible results and blown away, Happy to pay and looking forward to seeing what other agents I can add to my company once I get the capitol.",
     avatar: "SM",
   },
   {
@@ -135,7 +135,7 @@ const testimonials = [
     location: "Fort Lauderdale, FL",
     rating: 5,
     review:
-      "The scheduling automation agent has been a game-changer. We've eliminated double bookings and our project coordination is seamless. Mike's expertise made the transition effortless.",
+      "The scheduling automation agent has been a game-changer. We've eliminated double bookings (which happened far too much) and using the pain point survey our project coordination is seamless. In a world full of tech and Ai, I'm glad I found Automari and am certainly recommending this to my friends and family.",
     avatar: "CR",
   },
   {
@@ -144,7 +144,7 @@ const testimonials = [
     location: "Boca Raton, FL",
     rating: 5,
     review:
-      "Automari's email management system handles 80% of our client inquiries automatically. It's like having a 24/7 assistant. Our productivity has skyrocketed since working with Mike.",
+      "We went with Automari's email management system and it handles 80% of our client inquiries automatically. Just as was represented to me during their discovery meeting, it's like having a 24/7 assistant. Our productivity has skyrocketed since working with Automari.",
     avatar: "JT",
   },
   {
@@ -162,7 +162,7 @@ const testimonials = [
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "Working with Automari has been transformative. The lead generation automation increased our qualified leads by 300%. Mike's strategic approach and technical expertise are unmatched.",
+      "I'm old fashioned and Ai has been a bit intimidating for me however, Working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
     avatar: "MG",
   },
 ]
