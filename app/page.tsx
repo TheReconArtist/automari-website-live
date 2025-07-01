@@ -162,7 +162,7 @@ const testimonials = [
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "I'm old fashioned and Ai has been a bit intimidating for me however, working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
+      "I'm old fashioned and Ai has been a bit intimidating for me however, working with Automari has been transative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
     avatar: "MG",
   },
 ]
@@ -778,8 +778,8 @@ export default function AutomariWebsite() {
               </span>
             </h2>
             <p className="text-xl text-slate-300 mb-12">
-              Contact us today to discover how our AI agents can revolutionize your operations and drive American
-              innovation.
+              Contact us today to discover how our AI agents can revolutionize your operations and what will be ultimately driving American
+              innovation. Don't be late to the party.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
