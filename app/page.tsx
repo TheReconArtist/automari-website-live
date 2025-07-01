@@ -270,12 +270,64 @@ export default function AutomariWebsite() {
   const handleSurveyChange = (questionId: string, value: any) => {
     setSurveyData((prev) => ({ ...prev, [questionId]: value }))
   }
-    // Here you would typically send the data to your backend
-    console.log("Survey Data:", surveyData)
-  }
 
   const currentQuestion = surveyQuestions[surveyStep]
   const isLastStep = surveyStep === surveyQuestions.length - 1
+
+  // --- Hero Logo Animation Section ---
+  const AnimatedLogo = () => (
+    <div className="flex justify-center mb-8">
+      <motion.div
+        className="relative w-40 h-40 sm:w-56 sm:h-56 drop-shadow-2xl"
+        initial={{ scale: 0.8, rotate: -10 }}
+        animate={{ scale: [1, 1.08, 0.96, 1.04, 1], rotate: [0, 15, -10, 5, 0] }}
+        transition={{ duration: 5, repeat: Infinity, repeatType: "loop" }}
+        whileHover={{ scale: 1.12, rotate: 8 }}
+        whileTap={{ scale: 0.98, rotate: -5 }}
+        style={{
+          perspective: "1000px"
+        }}
+      >
+        {/* Glowing 3D border */}
+        <div className="absolute inset-0 rounded-3xl border-4 border-gradient-to-r from-red-400 via-blue-400 to-slate-200 blur-md opacity-60 z-0 pointer-events-none" />
+        {/* Animated Sparkles */}
+        <motion.div
+          className="absolute w-6 h-6 left-2 top-2 bg-gradient-to-tr from-blue-400/80 to-white/30 rounded-full blur-lg z-10"
+          animate={{ y: [0, 10, -10, 0], opacity: [0.8, 0.6, 0.8, 0.8] }}
+          transition={{ duration: 2.5, repeat: Infinity, repeatType: "loop", delay: 0.5 }}
+        />
+        <motion.div
+          className="absolute w-4 h-4 right-4 bottom-4 bg-gradient-to-tr from-red-400/70 to-white/20 rounded-full blur-md z-10"
+          animate={{ y: [0, -12, 8, 0], opacity: [0.7, 0.4, 0.7, 0.7] }}
+          transition={{ duration: 3, repeat: Infinity, repeatType: "loop", delay: 1.5 }}
+        />
+        {/* 3D/Layered Logo */}
+        <motion.div
+          className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-blue-200/10 to-red-400/10 z-0"
+          style={{ filter: "blur(20px)" }}
+          animate={{ opacity: [0.6, 0.4, 0.65, 0.6] }}
+          transition={{ duration: 6, repeat: Infinity, repeatType: "loop" }}
+        />
+        <motion.div
+          className="relative w-full h-full rounded-3xl shadow-2xl overflow-hidden z-20"
+          style={{
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 6px 2px rgba(255,255,255,0.2)"
+          }}
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: [0, 25, -25, 0] }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: "loop" }}
+        >
+          <Image
+            src="/automari-logo.png"
+            alt="Automari 3D Logo"
+            fill
+            className="object-contain scale-110"
+            priority
+          />
+        </motion.div>
+      </motion.div>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-x-hidden">
@@ -316,7 +368,7 @@ export default function AutomariWebsite() {
                 <span>561-201-4365</span>
               </motion.a>
               <motion.a
-                href="mailto:ccontactautomari@gmail.com"
+                href="mailto:contactautomari@gmail.com"
                 className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
                 whileHover={{ scale: 1.05 }}
               >
@@ -382,26 +434,13 @@ export default function AutomariWebsite() {
               whileHover={{ scale: 1.05 }}
             >
               <Sparkles className="h-4 w-4 text-red-400" />
-              <span className="text-sm font-medium">America's Most Trusted AI Automation Agency</span>
+              <span className="text-sm font-medium">
+                Powered by faith and diligence in Americas fastest growing industry, Automari Agency is of the most trusted.
+              </span>
             </motion.div>
 
-            <div className="flex justify-center mb-8">
-              <motion.div
-                className="relative w-32 h-32 sm:w-40 sm:h-40"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                <Image
-                  src="/automari-logo.png"
-                  alt="Automari 3D Logo"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-blue-500/20 rounded-3xl blur-xl animate-pulse" />
-              </motion.div>
-            </div>
+            {/* --- NEW 3D/Animated LOGO --- */}
+            <AnimatedLogo />
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-slate-100 via-red-200 to-blue-200 bg-clip-text text-transparent">
@@ -706,47 +745,42 @@ export default function AutomariWebsite() {
                       onClick={() => setSurveyStep(Math.max(0, surveyStep - 1))}
                       disabled={surveyStep === 0}
                       className="border-slate-600 text-slate-300 hover:bg-slate-700"
-                  
-  <Button
-    onClick={handleSurveySubmit}
-    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
-  >
-    <Send className="mr-2 h-4 w-4" />
-    Submit Assessment
-  </Button>
-) : (
-  <Button
-    onClick={() => setSurveyStep(surveyStep + 1)}
-    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
-  >
-    Next
-    <ArrowRight className="ml-2 h-4 w-4" />
-  </Button>
-)}
-                    
-  try {
-    const response = await fetch("https://formspree.io/f/mrbkjoav", {
-      method: "POST",
-      body: formData,
-    });
+                    >
+                      Previous
+                    </Button>
+                    {isLastStep ? (
+                      <Button
+                        onClick={async () => {
+                          // handleSurveySubmit
+                          const formData = new FormData();
+                          Object.entries(surveyData).forEach(([key, value]) => {
+                            formData.append(key, Array.isArray(value) ? value.join(", ") : value);
+                          });
+                          try {
+                            const response = await fetch("https://formspree.io/f/mrbkjoav", {
+                              method: "POST",
+                              body: formData,
+                            });
 
-    if (response.ok) {
-      setSurveySubmitted(true);
-    } else {
-      alert("Form submission failed!");
-    }
-  } catch (error) {
-    console.error("Submission error:", error);
-    alert("There was a problem submitting the form.");
-  }
-};
-                    
-  return (
-    <>
+                            if (response.ok) {
+                              setSurveySubmitted(true);
+                            } else {
+                              alert("Form submission failed!");
+                            }
+                          } catch (error) {
+                            console.error("Submission error:", error);
+                            alert("There was a problem submitting the form.");
+                          }
+                        }}
+                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+                      >
+                        <Send className="mr-2 h-4 w-4" />
+                        Submit Assessment
+                      </Button>
                     ) : (
                       <Button
                         onClick={() => setSurveyStep(surveyStep + 1)}
-                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
                       >
                         Next
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -813,7 +847,7 @@ export default function AutomariWebsite() {
               >
                 <Phone className="h-6 w-6 text-red-400" />
                 <div className="text-left">
-                  <div className="text-sm text-slate-400">Text</div>
+                  <div className="text-sm text-slate-400">Give us a call/text with what you do</div>
                   <div className="text-lg font-semibold text-white">561-201-4365</div>
                 </div>
               </motion.a>
@@ -863,8 +897,7 @@ export default function AutomariWebsite() {
                 </span>
               </motion.div>
               <p className="text-slate-400 mb-6 leading-relaxed">
-                America's most trusted AI agency, streamlining business operations with cutting-edge automation
-                solutions.
+                Powered by faith and diligence in Americas fastest growing industry, Automari Agency is of the most trusted.
               </p>
               <div className="flex justify-center md:justify-start space-x-4">
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
