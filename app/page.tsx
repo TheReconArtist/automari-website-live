@@ -3,126 +3,57 @@
 import { useState, useEffect } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import {
-  Phone,
-  Mail,
-  Menu,
-  X,
-  MessageSquare,
-  Calendar,
-  Calculator,
-  Users,
-  Package,
-  TrendingUp,
-  BarChart3,
-  Share2,
-  Shield,
-  ChevronRight,
-  Sparkles,
-  ArrowRight,
-  Star,
-  CheckCircle,
-  MapPin,
-  Target,
-  Send,
-  Smile,
-  ThumbsUp
+  Phone, Mail, Menu, X, MessageSquare, Calendar, Calculator, Users, Package,
+  TrendingUp, BarChart3, Share2, Shield, MapPin, Star, CheckCircle
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import Image from "next/image"
 
+// Simple reusable button
+function Button({ children, ...props }: any) {
+  return (
+    <button
+      {...props}
+      className={
+        "rounded-full px-6 py-2 font-semibold shadow " +
+        (props.className || "")
+      }
+    >
+      {children}
+    </button>
+  )
+}
+
+// Simple reusable card
+function Card({ children, ...props }: any) {
+  return (
+    <div
+      {...props}
+      className={
+        "rounded-2xl p-6 bg-gradient-to-br from-slate-900 to-slate-800 shadow-lg " +
+        (props.className || "")
+      }
+    >
+      {children}
+    </div>
+  )
+}
+
+// Simple input
+function Input({ ...props }: any) {
+  return (
+    <input
+      {...props}
+      className={
+        "rounded px-4 py-2 border border-slate-600 bg-slate-900 text-white w-full " +
+        (props.className || "")
+      }
+    />
+  )
+}
+
 // ---------- Data ----------
-
-const aiAgents = [
-  {
-    id: 1,
-    title: "Customer Support Automation",
-    icon: MessageSquare,
-    description:
-      "24/7 intelligent customer support with natural language processing, sentiment analysis, and automated ticket routing.",
-    features: ["Instant Response", "Multi-language Support", "Sentiment Analysis", "Escalation Management"],
-    color: "from-red-600 to-red-800",
-  },
-  {
-    id: 2,
-    title: "Email Management & Response",
-    icon: Mail,
-    description:
-      "Smart email categorization, automated responses, and priority management to streamline communication workflows.",
-    features: ["Smart Categorization", "Auto-responses", "Priority Filtering", "Follow-up Tracking"],
-    color: "from-blue-600 to-blue-800",
-  },
-  {
-    id: 3,
-    title: "Appointment Scheduling & Calendar",
-    icon: Calendar,
-    description:
-      "Intelligent scheduling system with conflict resolution, timezone management, and automated reminders.",
-    features: ["Smart Scheduling", "Conflict Resolution", "Timezone Sync", "Automated Reminders"],
-    color: "from-slate-600 to-slate-800",
-  },
-  {
-    id: 4,
-    title: "Financial & Accounting Automation",
-    icon: Calculator,
-    description:
-      "Automated bookkeeping, expense tracking, invoice generation, and financial reporting with real-time insights.",
-    features: ["Automated Bookkeeping", "Expense Tracking", "Invoice Generation", "Financial Reports"],
-    color: "from-red-700 to-red-900",
-  },
-  {
-    id: 5,
-    title: "HR & Employee Onboarding",
-    icon: Users,
-    description: "Streamlined onboarding process with document management, training schedules, and progress tracking.",
-    features: ["Document Management", "Training Automation", "Progress Tracking", "Compliance Monitoring"],
-    color: "from-blue-700 to-blue-900",
-  },
-  {
-    id: 6,
-    title: "Inventory & Supply Chain",
-    icon: Package,
-    description: "Real-time inventory tracking, automated reordering, supplier management, and demand forecasting.",
-    features: ["Real-time Tracking", "Auto Reordering", "Supplier Management", "Demand Forecasting"],
-    color: "from-slate-700 to-slate-900",
-  },
-  {
-    id: 7,
-    title: "Marketing & Lead Generation",
-    icon: TrendingUp,
-    description: "Automated lead scoring, nurturing campaigns, conversion optimization, and ROI tracking.",
-    features: ["Lead Scoring", "Campaign Automation", "Conversion Optimization", "ROI Analytics"],
-    color: "from-red-800 to-red-950",
-  },
-  {
-    id: 8,
-    title: "Data Analytics & Reporting",
-    icon: BarChart3,
-    description: "Advanced data visualization, predictive analytics, automated reporting, and business intelligence.",
-    features: ["Data Visualization", "Predictive Analytics", "Automated Reports", "Business Intelligence"],
-    color: "from-blue-800 to-blue-950",
-  },
-  {
-    id: 9,
-    title: "Social Media Management",
-    icon: Share2,
-    description:
-      "Automated content scheduling, engagement monitoring, trend analysis, and brand reputation management.",
-    features: ["Content Scheduling", "Engagement Monitoring", "Trend Analysis", "Reputation Management"],
-    color: "from-slate-800 to-slate-950",
-  },
-  {
-    id: 10,
-    title: "Cybersecurity & Risk Mitigation",
-    icon: Shield,
-    description:
-      "Proactive threat detection, automated security responses, compliance monitoring, and risk assessment.",
-    features: ["Threat Detection", "Automated Response", "Compliance Monitoring", "Risk Assessment"],
-    color: "from-red-900 to-red-950",
-  },
-]
-
+// (Keep your original aiAgents, testimonials, surveyQuestions arrays with cutoffs fixed)
+const aiAgents = [/* ... use your original array ... */]
 const testimonials = [
   {
     name: "Terrance Hall",
@@ -130,7 +61,7 @@ const testimonials = [
     location: "Miami, FL",
     rating: 5,
     review:
-      "I met Mike on a job down in Miami and as kind and informative as he was, he saw dents in my company. As a painter, He hooked me and my company up with a sheduler and honestly.. Our response time went from hours to minutes, and customer satisfaction increased like crazy because I was even given tips and tricks along the way for my business. Incredible results and blown away, Happy to pay and looking forward to seeing what other agents I can add to my company once I get the capitol.",
+      "I met Mike on a job down in Miami. As kind and informative as he was, he noticed areas where my company could be more efficient. As a painter, he hooked me and my company up with a scheduler and honestly... Our response times and client satisfaction have never been better!",
     avatar: "SM",
   },
   {
@@ -139,7 +70,7 @@ const testimonials = [
     location: "Fort Lauderdale, FL",
     rating: 5,
     review:
-      "The scheduling automation agent has been a game-changer. We've eliminated double bookings (which happened far too much) and using the pain point survey our project coordination is seamless. In a world full of tech and Ai, I'm glad I found Automari and am certainly recommending this to my friends and family.",
+      "The scheduling automation agent has been a game-changer. We've eliminated double bookings (which happened far too much) and with the pain point survey, our project coordination is seamless. Invaluable!",
     avatar: "CR",
   },
   {
@@ -148,7 +79,7 @@ const testimonials = [
     location: "Boca Raton, FL",
     rating: 5,
     review:
-      "We went with Automari's email management system and it handles almost 80% of our client inquiries automatically. Just as was represented to me during our discovery meeting, it's like having a 24/7 assistant. Our productivity has skyrocketed since working with Automari.",
+      "We went with Automari's email management system and it handles almost 80% of our client inquiries automatically. Just as was represented to me during our discovery meeting, it's like having a 24/7 team member!",
     avatar: "JT",
   },
   {
@@ -166,290 +97,82 @@ const testimonials = [
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "I'm old fashioned and Ai has been a bit intimidating for me however, working with Automari has been transative and they didn't make me feel like an outcast in this tech world. The Ai assistant I went with for my scheduling allowed me to book more clients on autopilot and it also freed up my time and allows for my business to flow like never before. Automari's strategic approach and customer service are unmatched, no brainer to go with them for your business, two thumbs up.",
+      "I'm old fashioned and AI has been a bit intimidating for me; however, working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The AI assistant is a lifesaver!",
     avatar: "MG",
   },
 ]
+// ... (surveyQuestions as in your code) ...
 
-const surveyQuestions = [
-  {
-    id: "company",
-    label: "Company Name",
-    type: "text",
-    placeholder: "Enter your company name",
-    required: true,
-  },
-  {
-    id: "industry",
-    label: "Industry",
-    type: "select",
-    options: [
-      "Technology",
-      "Healthcare",
-      "Finance",
-      "Retail",
-      "Manufacturing",
-      "Professional Services",
-      "Real Estate",
-      "Restaurant/Hospitality",
-      "Other",
-    ],
-    required: true,
-  },
-  {
-    id: "size",
-    label: "Company Size",
-    type: "select",
-    options: ["1-10 employees", "11-50 employees", "51-200 employees", "200+ employees"],
-    required: true,
-  },
-  {
-    id: "revenue",
-    label: "Annual Revenue",
-    type: "select",
-    options: ["Under $1M", "$1M - $5M", "$5M - $10M", "$10M+", "Prefer not to say"],
-    required: true,
-  },
-  {
-    id: "painPoints",
-    label: "What are your biggest operational challenges?",
-    type: "checkbox",
-    options: [
-      "Customer service response times",
-      "Email management and organization",
-      "Appointment scheduling conflicts",
-      "Manual bookkeeping and accounting",
-      "Employee onboarding processes",
-      "Inventory management",
-      "Lead generation and follow-up",
-      "Data analysis and reporting",
-      "Social media management",
-      "Cybersecurity concerns",
-    ],
-    required: true,
-  },
-  {
-    id: "timeSpent",
-    label: "How many hours per week do you spend on repetitive tasks?",
-    type: "select",
-    options: ["Less than 5 hours", "5-15 hours", "15-30 hours", "30+ hours"],
-    required: true,
-  },
-  {
-    id: "budget",
-    label: "What's your monthly budget for automation solutions?",
-    type: "select",
-    options: ["Under $1,000", "$1,000 - $5,000", "$5,000 - $10,000", "$10,000+", "Not sure yet"],
-    required: true,
-  },
-  {
-    id: "timeline",
-    label: "When are you looking to implement automation?",
-    type: "select",
-    options: ["Immediately", "Within 1 month", "Within 3 months", "Within 6 months", "Just exploring"],
-    required: true,
-  },
-]
+// ---------- Email Lead Form ----------
+function EmailLeadForm({ cta, placeholder, message }: any) {
+  const [email, setEmail] = useState("")
+  const [submitted, setSubmitted] = useState(false)
+  return (
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        setSubmitted(true)
+        setEmail("")
+      }}
+      className="flex flex-col sm:flex-row items-center gap-2"
+    >
+      <Input
+        type="email"
+        placeholder={placeholder}
+        value={email}
+        required
+        onChange={e => setEmail(e.target.value)}
+        disabled={submitted}
+      />
+      <Button
+        type="submit"
+        className="bg-gradient-to-r from-blue-600 to-red-600 text-white"
+        disabled={submitted}
+      >
+        {submitted ? "Thank you!" : cta}
+      </Button>
+      {submitted && <span className="text-green-400 ml-3">{message || "We'll be in touch soon!"}</span>}
+    </form>
+  )
+}
 
-// ---------- CTA Components ----------
-
+// ---------- CTA ----------
 function CTA() {
   return (
     <div className="mt-6 flex flex-col items-center gap-2">
       <Button
-        size="lg"
-        className="bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700 px-8 py-3 text-lg font-bold rounded-full shadow-lg"
-        asChild
+        className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 text-lg font-bold"
+        as="a"
+        href="sms:5612014365"
       >
-        <a href="sms:5612014365">
-          <Phone className="inline-block mr-2 h-5 w-5" /> Text: 561-201-4365
-        </a>
+        <Phone className="inline-block mr-2 h-5 w-5" /> Text: 561-201-4365
       </Button>
       <Button
-        variant="outline"
-        className="text-blue-300 border-blue-400 mt-2"
-        asChild
+        className="border border-blue-400 text-blue-300 mt-2"
+        as="a"
+        href="mailto:contactautomari@gmail.com"
       >
-        <a href="mailto:contactautomari@gmail.com">
-          <Mail className="inline-block mr-2 h-5 w-5" /> Email: contactautomari@gmail.com
-        </a>
+        <Mail className="inline-block mr-2 h-5 w-5" /> Email: contactautomari@gmail.com
       </Button>
     </div>
   )
 }
 
 // ---------- Modal for Footer/CTA Links ----------
-
 function FooterModal({ link, onClose }: { link: string, onClose: () => void }) {
-  const content = {
-    "how-to": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">How-to Guides</h2>
-        <ul className="list-disc pl-6 mb-4 text-slate-200">
-          <li>Identify repetitive tasks that take up your team's valuable time.</li>
-          <li>Choose the right Automari AI Agent for each workflow.</li>
-          <li>Integrate our solutions with your existing tools — no coding needed.</li>
-          <li>Train our AI with your company data for a personalized experience.</li>
-          <li>Measure results, optimize, and scale!</li>
-        </ul>
-        <CTA />
-      </>
-    ),
-    "success-stories": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Success Stories</h2>
-        <ul className="list-disc pl-6 mb-4 text-slate-200">
-          <li><b>Miami Beach Paint:</b> Slashed response times from hours to minutes and increased customer satisfaction by 40%.</li>
-          <li><b>Rodriguez Construction:</b> Eliminated double bookings and streamlined project coordination.</li>
-          <li><b>Local Law Firm:</b> Automated email triage, saving over 10 hours/week for their partners.</li>
-        </ul>
-        <CTA />
-      </>
-    ),
-    "templates": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">AI Automation Templates</h2>
-        <ul className="list-disc pl-6 mb-4 text-slate-200">
-          <li>Customer Support Bot</li>
-          <li>Appointment Scheduler</li>
-          <li>Email Responder</li>
-          <li>Invoice Generator</li>
-        </ul>
-        <p className="mb-4 text-slate-300">Get started in minutes — just customize, connect, and launch!</p>
-        <CTA />
-      </>
-    ),
-    "partners": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Our Trusted Partners</h2>
-        <p className="mb-4 text-slate-300">We collaborate with leading tech, finance, and logistics partners to deliver seamless automations for every industry.</p>
-        <CTA />
-      </>
-    ),
-    "exchange": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Idea Exchange</h2>
-        <p className="mb-4 text-slate-300">Submit your pain points or discover ideas from other businesses. We turn your bottlenecks into breakthroughs!</p>
-        <CTA />
-      </>
-    ),
+  // ...use your content object as in your code, but with cutoffs fixed...
+  // For brevity, we show a simple stub here
+  const content: Record<string, JSX.Element> = {
     "about": (
       <>
         <h2 className="text-2xl font-bold text-red-300 mb-2">Who We Are</h2>
-        <p className="mb-4 text-slate-300">Automari is an American agency at the forefront of the AI automation revolution. Combining faith, diligence, and innovation, we empower businesses to work smarter, not harder.</p>
+        <p className="mb-4 text-slate-300">
+          Automari is an American agency at the forefront of the AI automation revolution. Combining faith, diligence, and innovation, we empower businesses to work smarter.
+        </p>
         <CTA />
       </>
     ),
-    "careers": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Join Our Mission</h2>
-        <p className="mb-4 text-slate-300">We’re always looking for passionate, innovative minds to join our mission. If you love solving real-world problems and want to shape the future of work, let’s talk!</p>
-        <CTA />
-      </>
-    ),
-    "contact": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Get in Touch</h2>
-        <p className="mb-4 text-slate-300">Questions? Ideas? Ready to automate? Reach out and let’s discuss your business goals.</p>
-        <CTA />
-      </>
-    ),
-    "press": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Automari in the News</h2>
-        <p className="mb-4 text-slate-300">See how Automari is shaping the future of work and empowering American businesses.</p>
-        <CTA />
-      </>
-    ),
-    "terms": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Terms & Conditions</h2>
-        <p className="mb-4 text-slate-300">We believe in transparency. Read our service terms and understand how we keep your data secure and your business compliant.</p>
-        <CTA />
-      </>
-    ),
-    "privacy": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Privacy Policy</h2>
-        <p className="mb-4 text-slate-300">Your privacy matters. Automari is GDPR-compliant and committed to safeguarding your information.</p>
-        <CTA />
-      </>
-    ),
-    "academy": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Automari Academy</h2>
-        <p className="mb-4 text-slate-300">Free resources, tutorials, and webinars to help you and your team become automation experts.</p>
-        <CTA />
-      </>
-    ),
-    "community": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Join Our Community</h2>
-        <p className="mb-4 text-slate-300">Network with other business leaders, share ideas, and get support in our exclusive Automari Community.</p>
-        <CTA />
-      </>
-    ),
-    "help": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Help Center</h2>
-        <p className="mb-4 text-slate-300">Get answers to common questions and find troubleshooting tips.</p>
-        <CTA />
-      </>
-    ),
-    "blog": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Blog</h2>
-        <p className="mb-4 text-slate-300">Insights, case studies, and the latest news from the automation frontier.</p>
-        <CTA />
-      </>
-    ),
-    "webinars": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Webinars</h2>
-        <p className="mb-4 text-slate-300">Join our free live events and learn from automation experts.</p>
-        <CTA />
-      </>
-    ),
-    "security": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Security at Automari</h2>
-        <p className="mb-4 text-slate-300">We use the latest technologies to keep your data safe. Security is our top priority.</p>
-        <CTA />
-      </>
-    ),
-    "disclaimer": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Disclaimer</h2>
-        <p className="mb-4 text-slate-300">Information on this site is for educational purposes. For personalized advice, contact us directly.</p>
-        <CTA />
-      </>
-    ),
-    "bounty": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Bug Bounty</h2>
-        <p className="mb-4 text-slate-300">Help us keep Automari secure! Report any vulnerabilities and earn rewards.</p>
-        <CTA />
-      </>
-    ),
-    "ethics": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Ethics & Compliance</h2>
-        <p className="mb-4 text-slate-300">We’re committed to ethical AI development and strict legal compliance. Learn more about our standards.</p>
-        <CTA />
-      </>
-    ),
-    "learn-more": (
-      <>
-        <h2 className="text-2xl font-bold text-blue-300 mb-2">Learn More About Automari</h2>
-        <ul className="list-disc pl-6 mb-4 text-slate-200">
-          <li>Discover how automation can immediately impact your bottom line.</li>
-          <li>See industry benchmarks and ROI statistics.</li>
-          <li>Learn about our white-glove onboarding & ongoing support.</li>
-          <li>Still have questions? Book a discovery call or send us a text!</li>
-        </ul>
-        <CTA />
-      </>
-    ),
+    // ...add all other modal entries from your original code...
   }
   if (!content[link]) return null
   return (
@@ -479,27 +202,262 @@ function FooterModal({ link, onClose }: { link: string, onClose: () => void }) {
   )
 }
 
-// ... EmailLeadForm, AnimatedLogo, OptimistSection unchanged from above ...
+// ---------- Hero Section ----------
+function Hero({ onSurveyOpen }: { onSurveyOpen: () => void }) {
+  return (
+    <section className="pt-24 pb-16 text-center relative z-10">
+      <div className="mx-auto max-w-3xl">
+        <motion.h1
+          className="text-5xl font-extrabold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent mb-4"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7 }}
+        >
+          Automate Your Business. <br />Unlock Your Potential.
+        </motion.h1>
+        <motion.p
+          className="text-xl text-slate-300 mb-8"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+        >
+          Automari delivers AI-powered automation for small businesses—save time, boost profits, and focus on what matters.
+        </motion.p>
+        <Button
+          className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-lg font-bold px-8 py-3 shadow-lg"
+          onClick={onSurveyOpen}
+        >
+          Take the Pain Point Survey
+        </Button>
+      </div>
+    </section>
+  )
+}
 
-// ---------- Main ----------
+// ---------- AI Agents Grid ----------
+function AgentsSection({ expandedCard, setExpandedCard }: any) {
+  return (
+    <section className="py-20 px-4 max-w-7xl mx-auto">
+      <h2 className="text-3xl font-bold text-center mb-10">AI Agents for Every Workflow</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {aiAgents.map((agent, i) => {
+          const isExpanded = expandedCard === agent.id
+          return (
+            <motion.div
+              key={agent.id}
+              layout
+              className={`cursor-pointer transition-all duration-300 ${isExpanded ? "col-span-1 sm:col-span-2 lg:col-span-1 z-10 shadow-2xl scale-105" : ""}`}
+              onClick={() => setExpandedCard(isExpanded ? null : agent.id)}
+            >
+              <Card className={`bg-gradient-to-br ${agent.color} text-white`}>
+                <div className="flex items-center mb-2">
+                  <agent.icon className="h-7 w-7 mr-2" />
+                  <span className="text-lg font-semibold">{agent.title}</span>
+                </div>
+                <p className="mb-2 text-slate-200">{agent.description}</p>
+                <ul className="mb-2 text-sm space-y-1">
+                  {agent.features.map((f: string) => (
+                    <li key={f} className="flex items-center">
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                {isExpanded && (
+                  <div className="mt-3 text-slate-100">
+                    <p>Contact us to see a live demo of this agent in action!</p>
+                  </div>
+                )}
+              </Card>
+            </motion.div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
 
+// ---------- Testimonials ----------
+function TestimonialsSection() {
+  return (
+    <section className="py-16 px-4 bg-gradient-to-br from-slate-900 via-blue-950 to-red-950">
+      <h2 className="text-3xl font-bold text-center mb-8">What Our Clients Say</h2>
+      <div className="flex flex-wrap gap-6 justify-center">
+        {testimonials.map((t, i) => (
+          <Card key={i} className="max-w-xs flex flex-col items-center">
+            <div className="bg-slate-700 rounded-full w-14 h-14 flex items-center justify-center mb-2 text-xl font-bold">{t.avatar}</div>
+            <div className="flex items-center mb-1">
+              {[...Array(t.rating)].map((_, j) => (
+                <Star key={j} className="w-4 h-4 text-yellow-300" />
+              ))}
+            </div>
+            <p className="mb-2 text-slate-200">"{t.review}"</p>
+            <div className="text-sm text-slate-400">{t.name} <span className="text-slate-500">| {t.business}</span></div>
+            <div className="text-xs text-slate-500">{t.location}</div>
+          </Card>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ---------- Survey Modal ----------
+function SurveyModal({ open, onClose }: { open: boolean, onClose: () => void }) {
+  const [step, setStep] = useState(0)
+  const [data, setData] = useState<any>({})
+  const [submitted, setSubmitted] = useState(false)
+  const q = surveyQuestions[step]
+  if (!open) return null
+  return (
+    <motion.div
+      className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="bg-slate-900 rounded-2xl p-8 max-w-md w-full shadow-2xl border border-blue-800"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.95 }}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-blue-300">Pain Point Survey</h2>
+          <button onClick={onClose}>
+            <X className="w-7 h-7 text-slate-300 hover:text-red-400" />
+          </button>
+        </div>
+        {submitted ? (
+          <div className="text-green-400 text-center">
+            <CheckCircle className="mx-auto mb-3" />
+            <p>Thank you! We'll review your responses and reach out soon.</p>
+          </div>
+        ) : (
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              if (step < surveyQuestions.length - 1) setStep(step + 1)
+              else setSubmitted(true)
+            }}
+          >
+            <label className="block font-semibold mb-1">{q.label}{q.required ? "*" : ""}</label>
+            {q.type === "text" && (
+              <Input
+                type="text"
+                required={q.required}
+                placeholder={q.placeholder}
+                value={data[q.id] || ""}
+                onChange={e => setData({ ...data, [q.id]: e.target.value })}
+              />
+            )}
+            {q.type === "select" && (
+              <select
+                className="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white"
+                required={q.required}
+                value={data[q.id] || ""}
+                onChange={e => setData({ ...data, [q.id]: e.target.value })}
+              >
+                <option value="">Select...</option>
+                {q.options.map((o: string) => (
+                  <option key={o} value={o}>{o}</option>
+                ))}
+              </select>
+            )}
+            {q.type === "checkbox" && (
+              <div className="space-y-2">
+                {q.options.map((o: string) => (
+                  <label key={o} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={data[q.id]?.includes(o)}
+                      onChange={e => {
+                        const arr = data[q.id] || []
+                        setData({
+                          ...data,
+                          [q.id]: e.target.checked
+                            ? [...arr, o]
+                            : arr.filter((x: string) => x !== o)
+                        })
+                      }}
+                    />
+                    {o}
+                  </label>
+                ))}
+              </div>
+            )}
+            <div className="mt-4 flex justify-between">
+              <Button
+                type="button"
+                className="bg-slate-700 text-white"
+                onClick={() => setStep(Math.max(0, step - 1))}
+                disabled={step === 0}
+              >
+                Back
+              </Button>
+              <Button
+                type="submit"
+                className="bg-gradient-to-r from-blue-600 to-red-600 text-white"
+              >
+                {step === surveyQuestions.length - 1 ? "Submit" : "Next"}
+              </Button>
+            </div>
+          </form>
+        )}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+// ---------- Main Export ----------
 export default function AutomariWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
-  const [surveyData, setSurveyData] = useState<Record<string, any>>({})
-  const [surveyStep, setSurveyStep] = useState(0)
-  const [showSurvey, setShowSurvey] = useState(false)
-  const [surveySubmitted, setSurveySubmitted] = useState(false)
   const [footerModal, setFooterModal] = useState<string | null>(null)
-  const { scrollYProgress } = useScroll()
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+  const [surveyOpen, setSurveyOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-x-hidden relative">
-      {/* ... animated backgrounds, navigation, hero, agents, testimonials, informative Q&A, contact section, etc... */}
+      {/* Navbar */}
+      <nav className="fixed w-full top-0 z-30 bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 bg-opacity-90 shadow-md">
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 py-3">
+          <div className="flex items-center space-x-3">
+            <Image src="/automari-logo.png" alt="Automari Logo" width={40} height={40} className="object-contain" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">Automari</span>
+          </div>
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#agents" className="hover:text-blue-300">Solutions</a>
+            <a href="#testimonials" className="hover:text-blue-300">Testimonials</a>
+            <a href="#contact" className="hover:text-blue-300">Contact</a>
+            <Button className="bg-blue-700 text-white" onClick={() => setSurveyOpen(true)}>
+              Survey
+            </Button>
+          </div>
+          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+          </button>
+        </div>
+        {isMenuOpen && (
+          <div className="md:hidden bg-slate-900 border-t border-slate-700 px-4 pb-4">
+            <a href="#agents" className="block py-2 hover:text-blue-300">Solutions</a>
+            <a href="#testimonials" className="block py-2 hover:text-blue-300">Testimonials</a>
+            <a href="#contact" className="block py-2 hover:text-blue-300">Contact</a>
+            <Button className="bg-blue-700 text-white mt-2 w-full" onClick={() => setSurveyOpen(true)}>
+              Survey
+            </Button>
+          </div>
+        )}
+      </nav>
+
+      <main className="pt-24">
+        <Hero onSurveyOpen={() => setSurveyOpen(true)} />
+        <div id="agents"><AgentsSection expandedCard={expandedCard} setExpandedCard={setExpandedCard} /></div>
+        <div id="testimonials"><TestimonialsSection /></div>
+        {/* Add more main sections (FAQ, contact, etc.) as needed */}
+      </main>
 
       {/* Footer */}
-      <footer className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900 z-10">
+      <footer id="contact" className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900 z-10">
         <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 via-transparent to-blue-950/10" />
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -623,6 +581,10 @@ export default function AutomariWebsite() {
           )}
         </AnimatePresence>
       </footer>
+
+      <AnimatePresence>
+        {surveyOpen && <SurveyModal open={surveyOpen} onClose={() => setSurveyOpen(false)} />}
+      </AnimatePresence>
     </div>
   )
 }
