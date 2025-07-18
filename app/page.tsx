@@ -3,65 +3,130 @@
 import { useState, useEffect } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import {
-  Phone, Mail, Menu, X, MessageSquare, Calendar, Calculator, Users, Package,
-  TrendingUp, BarChart3, Share2, Shield, MapPin, Star, CheckCircle
+  Phone,
+  Mail,
+  Menu,
+  X,
+  MessageSquare,
+  Calendar,
+  Calculator,
+  Users,
+  Package,
+  TrendingUp,
+  BarChart3,
+  Share2,
+  Shield,
+  ChevronRight,
+  Sparkles,
+  ArrowRight,
+  Star,
+  CheckCircle,
+  MapPin,
+  Target,
+  Send,
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import Image from "next/image"
 
-// Simple reusable button
-function Button({ children, ...props }: any) {
-  return (
-    <button
-      {...props}
-      className={
-        "rounded-full px-6 py-2 font-semibold shadow " +
-        (props.className || "")
-      }
-    >
-      {children}
-    </button>
-  )
-}
+const aiAgents = [
+  {
+    id: 1,
+    title: "Customer Support Automation",
+    icon: MessageSquare,
+    description:
+      "24/7 intelligent customer support with natural language processing, sentiment analysis, and automated ticket routing.",
+    features: ["Instant Response", "Multi-language Support", "Sentiment Analysis", "Escalation Management"],
+    color: "from-red-600 to-red-800",
+  },
+  {
+    id: 2,
+    title: "Email Management & Response",
+    icon: Mail,
+    description:
+      "Smart email categorization, automated responses, and priority management to streamline communication workflows.",
+    features: ["Smart Categorization", "Auto-responses", "Priority Filtering", "Follow-up Tracking"],
+    color: "from-blue-600 to-blue-800",
+  },
+  {
+    id: 3,
+    title: "Appointment Scheduling & Calendar",
+    icon: Calendar,
+    description:
+      "Intelligent scheduling system with conflict resolution, timezone management, and automated reminders.",
+    features: ["Smart Scheduling", "Conflict Resolution", "Timezone Sync", "Automated Reminders"],
+    color: "from-slate-600 to-slate-800",
+  },
+  {
+    id: 4,
+    title: "Financial & Accounting Automation",
+    icon: Calculator,
+    description:
+      "Automated bookkeeping, expense tracking, invoice generation, and financial reporting with real-time insights.",
+    features: ["Automated Bookkeeping", "Expense Tracking", "Invoice Generation", "Financial Reports"],
+    color: "from-red-700 to-red-900",
+  },
+  {
+    id: 5,
+    title: "HR & Employee Onboarding",
+    icon: Users,
+    description: "Streamlined onboarding process with document management, training schedules, and progress tracking.",
+    features: ["Document Management", "Training Automation", "Progress Tracking", "Compliance Monitoring"],
+    color: "from-blue-700 to-blue-900",
+  },
+  {
+    id: 6,
+    title: "Inventory & Supply Chain",
+    icon: Package,
+    description: "Real-time inventory tracking, automated reordering, supplier management, and demand forecasting.",
+    features: ["Real-time Tracking", "Auto Reordering", "Supplier Management", "Demand Forecasting"],
+    color: "from-slate-700 to-slate-900",
+  },
+  {
+    id: 7,
+    title: "Marketing & Lead Generation",
+    icon: TrendingUp,
+    description: "Automated lead scoring, nurturing campaigns, conversion optimization, and ROI tracking.",
+    features: ["Lead Scoring", "Campaign Automation", "Conversion Optimization", "ROI Analytics"],
+    color: "from-red-800 to-red-950",
+  },
+  {
+    id: 8,
+    title: "Data Analytics & Reporting",
+    icon: BarChart3,
+    description: "Advanced data visualization, predictive analytics, automated reporting, and business intelligence.",
+    features: ["Data Visualization", "Predictive Analytics", "Automated Reports", "Business Intelligence"],
+    color: "from-blue-800 to-blue-950",
+  },
+  {
+    id: 9,
+    title: "Social Media Management",
+    icon: Share2,
+    description:
+      "Automated content scheduling, engagement monitoring, trend analysis, and brand reputation management.",
+    features: ["Content Scheduling", "Engagement Monitoring", "Trend Analysis", "Reputation Management"],
+    color: "from-slate-800 to-slate-950",
+  },
+  {
+    id: 10,
+    title: "Cybersecurity & Risk Mitigation",
+    icon: Shield,
+    description:
+      "Proactive threat detection, automated security responses, compliance monitoring, and risk assessment.",
+    features: ["Threat Detection", "Automated Response", "Compliance Monitoring", "Risk Assessment"],
+    color: "from-red-900 to-red-950",
+  },
+]
 
-// Simple reusable card
-function Card({ children, ...props }: any) {
-  return (
-    <div
-      {...props}
-      className={
-        "rounded-2xl p-6 bg-gradient-to-br from-slate-900 to-slate-800 shadow-lg " +
-        (props.className || "")
-      }
-    >
-      {children}
-    </div>
-  )
-}
-
-// Simple input
-function Input({ ...props }: any) {
-  return (
-    <input
-      {...props}
-      className={
-        "rounded px-4 py-2 border border-slate-600 bg-slate-900 text-white w-full " +
-        (props.className || "")
-      }
-    />
-  )
-}
-
-// ---------- Data ----------
-// (Keep your original aiAgents, testimonials, surveyQuestions arrays with cutoffs fixed)
-const aiAgents = [/* ... use your original array ... */]
 const testimonials = [
   {
-    name: "Terrance Hall",
-    business: "Miami Beach Paint",
-    location: "Miami, FL",
+    name: "Sarah Martinez",
+    business: "Miami Beach Boutique",
+    location: "Miami Beach, FL",
     rating: 5,
     review:
-      "I met Mike on a job down in Miami. As kind and informative as he was, he noticed areas where my company could be more efficient. As a painter, he hooked me and my company up with a scheduler and honestly... Our response times and client satisfaction have never been better!",
+      "Mike and the Automari team transformed our customer service completely. Our response time went from hours to minutes, and customer satisfaction increased by 40%. Incredible results!",
     avatar: "SM",
   },
   {
@@ -70,25 +135,25 @@ const testimonials = [
     location: "Fort Lauderdale, FL",
     rating: 5,
     review:
-      "The scheduling automation agent has been a game-changer. We've eliminated double bookings (which happened far too much) and with the pain point survey, our project coordination is seamless. Invaluable!",
+      "The scheduling automation agent has been a game-changer. We've eliminated double bookings and our project coordination is seamless. Mike's expertise made the transition effortless.",
     avatar: "CR",
   },
   {
     name: "Jennifer Thompson",
-    business: "Anonymous",
+    business: "Thompson Legal Services",
     location: "Boca Raton, FL",
     rating: 5,
     review:
-      "We went with Automari's email management system and it handles almost 80% of our client inquiries automatically. Just as was represented to me during our discovery meeting, it's like having a 24/7 team member!",
+      "Automari's email management system handles 80% of our client inquiries automatically. It's like having a 24/7 assistant. Our productivity has skyrocketed since working with Mike.",
     avatar: "JT",
   },
   {
     name: "David Chen",
-    business: "Chen's Kosher Mgmt.",
+    business: "Chen's Restaurant Group",
     location: "West Palm Beach, FL",
     rating: 5,
     review:
-      "The inventory management AI has saved us thousands in waste and prevented stockouts. Automari understood our unique needs and delivered beyond expectations. Highly recommend!",
+      "The inventory management AI has saved us thousands in waste and prevented stockouts. Mike understood our unique needs and delivered beyond expectations. Highly recommend!",
     avatar: "DC",
   },
   {
@@ -97,367 +162,349 @@ const testimonials = [
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "I'm old fashioned and AI has been a bit intimidating for me; however, working with Automari has been transformative and they didn't make me feel like an outcast in this tech world. The AI assistant is a lifesaver!",
+      "Working with Automari has been transformative. The lead generation automation increased our qualified leads by 300%. Mike's strategic approach and technical expertise are unmatched.",
     avatar: "MG",
   },
 ]
-// ... (surveyQuestions as in your code) ...
 
-// ---------- Email Lead Form ----------
-function EmailLeadForm({ cta, placeholder, message }: any) {
-  const [email, setEmail] = useState("")
-  const [submitted, setSubmitted] = useState(false)
-  return (
-    <form
-      onSubmit={e => {
-        e.preventDefault()
-        setSubmitted(true)
-        setEmail("")
-      }}
-      className="flex flex-col sm:flex-row items-center gap-2"
-    >
-      <Input
-        type="email"
-        placeholder={placeholder}
-        value={email}
-        required
-        onChange={e => setEmail(e.target.value)}
-        disabled={submitted}
-      />
-      <Button
-        type="submit"
-        className="bg-gradient-to-r from-blue-600 to-red-600 text-white"
-        disabled={submitted}
-      >
-        {submitted ? "Thank you!" : cta}
-      </Button>
-      {submitted && <span className="text-green-400 ml-3">{message || "We'll be in touch soon!"}</span>}
-    </form>
-  )
-}
+const surveyQuestions = [
+  {
+    id: "company",
+    label: "Company Name",
+    type: "text",
+    placeholder: "Enter your company name",
+    required: true,
+  },
+  {
+    id: "industry",
+    label: "Industry",
+    type: "select",
+    options: [
+      "Technology",
+      "Healthcare",
+      "Finance",
+      "Retail",
+      "Manufacturing",
+      "Professional Services",
+      "Real Estate",
+      "Restaurant/Hospitality",
+      "Other",
+    ],
+    required: true,
+  },
+  {
+    id: "size",
+    label: "Company Size",
+    type: "select",
+    options: ["1-10 employees", "11-50 employees", "51-200 employees", "200+ employees"],
+    required: true,
+  },
+  {
+    id: "revenue",
+    label: "Annual Revenue",
+    type: "select",
+    options: ["Under $1M", "$1M - $5M", "$5M - $10M", "$10M+", "Prefer not to say"],
+    required: true,
+  },
+  {
+    id: "painPoints",
+    label: "What are your biggest operational challenges?",
+    type: "checkbox",
+    options: [
+      "Customer service response times",
+      "Email management and organization",
+      "Appointment scheduling conflicts",
+      "Manual bookkeeping and accounting",
+      "Employee onboarding processes",
+      "Inventory management",
+      "Lead generation and follow-up",
+      "Data analysis and reporting",
+      "Social media management",
+      "Cybersecurity concerns",
+    ],
+    required: true,
+  },
+  {
+    id: "timeSpent",
+    label: "How many hours per week do you spend on repetitive tasks?",
+    type: "select",
+    options: ["Less than 5 hours", "5-15 hours", "15-30 hours", "30+ hours"],
+    required: true,
+  },
+  {
+    id: "budget",
+    label: "What's your monthly budget for automation solutions?",
+    type: "select",
+    options: ["Under $1,000", "$1,000 - $5,000", "$5,000 - $10,000", "$10,000+", "Not sure yet"],
+    required: true,
+  },
+  {
+    id: "timeline",
+    label: "When are you looking to implement automation?",
+    type: "select",
+    options: ["Immediately", "Within 1 month", "Within 3 months", "Within 6 months", "Just exploring"],
+    required: true,
+  },
+]
 
-// ---------- CTA ----------
-function CTA() {
-  return (
-    <div className="mt-6 flex flex-col items-center gap-2">
-      <Button
-        className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 text-lg font-bold"
-        as="a"
-        href="sms:5612014365"
-      >
-        <Phone className="inline-block mr-2 h-5 w-5" /> Text: 561-201-4365
-      </Button>
-      <Button
-        className="border border-blue-400 text-blue-300 mt-2"
-        as="a"
-        href="mailto:contactautomari@gmail.com"
-      >
-        <Mail className="inline-block mr-2 h-5 w-5" /> Email: contactautomari@gmail.com
-      </Button>
-    </div>
-  )
-}
-
-// ---------- Modal for Footer/CTA Links ----------
-function FooterModal({ link, onClose }: { link: string, onClose: () => void }) {
-  // ...use your content object as in your code, but with cutoffs fixed...
-  // For brevity, we show a simple stub here
-  const content: Record<string, JSX.Element> = {
-    "about": (
-      <>
-        <h2 className="text-2xl font-bold text-red-300 mb-2">Who We Are</h2>
-        <p className="mb-4 text-slate-300">
-          Automari is an American agency at the forefront of the AI automation revolution. Combining faith, diligence, and innovation, we empower businesses to work smarter.
-        </p>
-        <CTA />
-      </>
-    ),
-    // ...add all other modal entries from your original code...
-  }
-  if (!content[link]) return null
-  return (
-    <motion.div
-      className="fixed inset-0 z-[200] bg-black/85 flex items-center justify-center px-2 py-8"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="bg-gradient-to-br from-slate-900 via-blue-950 to-red-950 border border-slate-700 rounded-2xl p-8 max-w-lg w-full shadow-2xl"
-        initial={{ scale: 0.93, y: 40 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.93, y: 40 }}
-      >
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-xl font-bold text-blue-300">
-            {link.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
-          </h3>
-          <button onClick={onClose}>
-            <X className="h-7 w-7 text-slate-300 transition hover:text-red-400" />
-          </button>
-        </div>
-        <div className="overflow-y-auto max-h-[60vh]">{content[link]}</div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-// ---------- Hero Section ----------
-function Hero({ onSurveyOpen }: { onSurveyOpen: () => void }) {
-  return (
-    <section className="pt-24 pb-16 text-center relative z-10">
-      <div className="mx-auto max-w-3xl">
-        <motion.h1
-          className="text-5xl font-extrabold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent mb-4"
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-        >
-          Automate Your Business. <br />Unlock Your Potential.
-        </motion.h1>
-        <motion.p
-          className="text-xl text-slate-300 mb-8"
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-        >
-          Automari delivers AI-powered automation for small businesses—save time, boost profits, and focus on what matters.
-        </motion.p>
-        <Button
-          className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-lg font-bold px-8 py-3 shadow-lg"
-          onClick={onSurveyOpen}
-        >
-          Take the Pain Point Survey
-        </Button>
-      </div>
-    </section>
-  )
-}
-
-// ---------- AI Agents Grid ----------
-function AgentsSection({ expandedCard, setExpandedCard }: any) {
-  return (
-    <section className="py-20 px-4 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-10">AI Agents for Every Workflow</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {aiAgents.map((agent, i) => {
-          const isExpanded = expandedCard === agent.id
-          return (
-            <motion.div
-              key={agent.id}
-              layout
-              className={`cursor-pointer transition-all duration-300 ${isExpanded ? "col-span-1 sm:col-span-2 lg:col-span-1 z-10 shadow-2xl scale-105" : ""}`}
-              onClick={() => setExpandedCard(isExpanded ? null : agent.id)}
-            >
-              <Card className={`bg-gradient-to-br ${agent.color} text-white`}>
-                <div className="flex items-center mb-2">
-                  <agent.icon className="h-7 w-7 mr-2" />
-                  <span className="text-lg font-semibold">{agent.title}</span>
-                </div>
-                <p className="mb-2 text-slate-200">{agent.description}</p>
-                <ul className="mb-2 text-sm space-y-1">
-                  {agent.features.map((f: string) => (
-                    <li key={f} className="flex items-center">
-                      <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                {isExpanded && (
-                  <div className="mt-3 text-slate-100">
-                    <p>Contact us to see a live demo of this agent in action!</p>
-                  </div>
-                )}
-              </Card>
-            </motion.div>
-          )
-        })}
-      </div>
-    </section>
-  )
-}
-
-// ---------- Testimonials ----------
-function TestimonialsSection() {
-  return (
-    <section className="py-16 px-4 bg-gradient-to-br from-slate-900 via-blue-950 to-red-950">
-      <h2 className="text-3xl font-bold text-center mb-8">What Our Clients Say</h2>
-      <div className="flex flex-wrap gap-6 justify-center">
-        {testimonials.map((t, i) => (
-          <Card key={i} className="max-w-xs flex flex-col items-center">
-            <div className="bg-slate-700 rounded-full w-14 h-14 flex items-center justify-center mb-2 text-xl font-bold">{t.avatar}</div>
-            <div className="flex items-center mb-1">
-              {[...Array(t.rating)].map((_, j) => (
-                <Star key={j} className="w-4 h-4 text-yellow-300" />
-              ))}
-            </div>
-            <p className="mb-2 text-slate-200">"{t.review}"</p>
-            <div className="text-sm text-slate-400">{t.name} <span className="text-slate-500">| {t.business}</span></div>
-            <div className="text-xs text-slate-500">{t.location}</div>
-          </Card>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-// ---------- Survey Modal ----------
-function SurveyModal({ open, onClose }: { open: boolean, onClose: () => void }) {
-  const [step, setStep] = useState(0)
-  const [data, setData] = useState<any>({})
-  const [submitted, setSubmitted] = useState(false)
-  const q = surveyQuestions[step]
-  if (!open) return null
-  return (
-    <motion.div
-      className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="bg-slate-900 rounded-2xl p-8 max-w-md w-full shadow-2xl border border-blue-800"
-        initial={{ scale: 0.95 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.95 }}
-      >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-blue-300">Pain Point Survey</h2>
-          <button onClick={onClose}>
-            <X className="w-7 h-7 text-slate-300 hover:text-red-400" />
-          </button>
-        </div>
-        {submitted ? (
-          <div className="text-green-400 text-center">
-            <CheckCircle className="mx-auto mb-3" />
-            <p>Thank you! We'll review your responses and reach out soon.</p>
-          </div>
-        ) : (
-          <form
-            onSubmit={e => {
-              e.preventDefault()
-              if (step < surveyQuestions.length - 1) setStep(step + 1)
-              else setSubmitted(true)
-            }}
-          >
-            <label className="block font-semibold mb-1">{q.label}{q.required ? "*" : ""}</label>
-            {q.type === "text" && (
-              <Input
-                type="text"
-                required={q.required}
-                placeholder={q.placeholder}
-                value={data[q.id] || ""}
-                onChange={e => setData({ ...data, [q.id]: e.target.value })}
-              />
-            )}
-            {q.type === "select" && (
-              <select
-                className="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white"
-                required={q.required}
-                value={data[q.id] || ""}
-                onChange={e => setData({ ...data, [q.id]: e.target.value })}
-              >
-                <option value="">Select...</option>
-                {q.options.map((o: string) => (
-                  <option key={o} value={o}>{o}</option>
-                ))}
-              </select>
-            )}
-            {q.type === "checkbox" && (
-              <div className="space-y-2">
-                {q.options.map((o: string) => (
-                  <label key={o} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={data[q.id]?.includes(o)}
-                      onChange={e => {
-                        const arr = data[q.id] || []
-                        setData({
-                          ...data,
-                          [q.id]: e.target.checked
-                            ? [...arr, o]
-                            : arr.filter((x: string) => x !== o)
-                        })
-                      }}
-                    />
-                    {o}
-                  </label>
-                ))}
-              </div>
-            )}
-            <div className="mt-4 flex justify-between">
-              <Button
-                type="button"
-                className="bg-slate-700 text-white"
-                onClick={() => setStep(Math.max(0, step - 1))}
-                disabled={step === 0}
-              >
-                Back
-              </Button>
-              <Button
-                type="submit"
-                className="bg-gradient-to-r from-blue-600 to-red-600 text-white"
-              >
-                {step === surveyQuestions.length - 1 ? "Submit" : "Next"}
-              </Button>
-            </div>
-          </form>
-        )}
-      </motion.div>
-    </motion.div>
-  )
-}
-
-// ---------- Main Export ----------
 export default function AutomariWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
-  const [footerModal, setFooterModal] = useState<string | null>(null)
-  const [surveyOpen, setSurveyOpen] = useState(false)
+  const [surveyData, setSurveyData] = useState<Record<string, any>>({})
+  const [surveyStep, setSurveyStep] = useState(0)
+  const [showSurvey, setShowSurvey] = useState(false)
+  const [surveySubmitted, setSurveySubmitted] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [isMenuOpen])
+
+  const handleSurveyChange = (questionId: string, value: any) => {
+    setSurveyData((prev) => ({ ...prev, [questionId]: value }))
+  }
+
+  const handleSurveySubmit = () => {
+    setSurveySubmitted(true)
+    // Here you would typically send the data to your backend
+    console.log("Survey Data:", surveyData)
+  }
+
+  const currentQuestion = surveyQuestions[surveyStep]
+  const isLastStep = surveyStep === surveyQuestions.length - 1
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-x-hidden relative">
-      {/* Navbar */}
-      <nav className="fixed w-full top-0 z-30 bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 bg-opacity-90 shadow-md">
-        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center space-x-3">
-            <Image src="/automari-logo.png" alt="Automari Logo" width={40} height={40} className="object-contain" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">Automari</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-x-hidden">
+      {/* Animated Background */}
+      <motion.div className="fixed inset-0 opacity-20" style={{ y: backgroundY }}>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 via-blue-900/20 to-slate-800/20 animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl animate-bounce" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-slate-400/5 rounded-full blur-2xl animate-float" />
+      </motion.div>
+
+      {/* Navigation */}
+      <motion.nav
+        className="fixed top-0 w-full z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-700/50"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
+              <div className="relative w-10 h-10">
+                <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-contain" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                Automari
+              </span>
+            </motion.div>
+
+            {/* Desktop Contact Info */}
+            <div className="hidden md:flex items-center space-x-6">
+              <motion.a
+                href="tel:561-201-4365"
+                className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Phone className="h-4 w-4" />
+                <span>561-201-4365</span>
+              </motion.a>
+              <motion.a
+                href="mailto:contact@automari.ai"
+                className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Mail className="h-4 w-4" />
+                <span>contact@automari.ai</span>
+              </motion.a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </motion.button>
           </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#agents" className="hover:text-blue-300">Solutions</a>
-            <a href="#testimonials" className="hover:text-blue-300">Testimonials</a>
-            <a href="#contact" className="hover:text-blue-300">Contact</a>
-            <Button className="bg-blue-700 text-white" onClick={() => setSurveyOpen(true)}>
-              Survey
-            </Button>
-          </div>
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
-          </button>
         </div>
-        {isMenuOpen && (
-          <div className="md:hidden bg-slate-900 border-t border-slate-700 px-4 pb-4">
-            <a href="#agents" className="block py-2 hover:text-blue-300">Solutions</a>
-            <a href="#testimonials" className="block py-2 hover:text-blue-300">Testimonials</a>
-            <a href="#contact" className="block py-2 hover:text-blue-300">Contact</a>
-            <Button className="bg-blue-700 text-white mt-2 w-full" onClick={() => setSurveyOpen(true)}>
-              Survey
-            </Button>
-          </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className="md:hidden backdrop-blur-md bg-slate-950/90 border-t border-slate-700/50"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="px-4 py-4 space-y-4">
+                <motion.a
+                  href="tel:561-201-4365"
+                  className="flex items-center space-x-2 text-red-400"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>561-201-4365</span>
+                </motion.a>
+                <motion.a
+                  href="mailto:contact@automari.ai"
+                  className="flex items-center space-x-2 text-blue-400"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>contact@automari.ai</span>
+                </motion.a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <motion.div
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-red-600/20 to-blue-600/20 backdrop-blur-sm border border-red-500/30 rounded-full px-6 py-2 mb-8"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Sparkles className="h-4 w-4 text-red-400" />
+              <span className="text-sm font-medium">America's Most Trusted AI Automation Agency</span>
+            </motion.div>
+
+            <div className="flex justify-center mb-8">
+              <motion.div
+                className="relative w-32 h-32 sm:w-40 sm:h-40"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+              >
+                <Image
+                  src="/automari-logo.png"
+                  alt="Automari 3D Logo"
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-blue-500/20 rounded-3xl blur-xl animate-pulse" />
+              </motion.div>
+            </div>
+
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-100 via-red-200 to-blue-200 bg-clip-text text-transparent">
+                Streamline Business
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-red-400 via-slate-300 to-blue-400 bg-clip-text text-transparent">
+                Operations with AI
+              </span>
+            </h1>
+
+            <p className="text-xl sm:text-2xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Transform your business with our specialized AI agents designed to automate, optimize, and revolutionize
+              your operations across America.
+            </p>
+                    <CheckCircle className="h-10 w-10 text-white" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Assessment Complete!</h3>
+                  <p className="text-slate-300 mb-6">
+                    Thank you for completing our business assessment. Based on your responses, we'll prepare a
+                    customized automation strategy for your business.
+                  </p>
+                  <p className="text-lg font-semibold text-red-400 mb-6">
+                    Mike will personally review your assessment and contact you within 24 hours to schedule your
+                    discovery call.
+                  </p>
+                  <Button
+                    onClick={() => setShowSurvey(false)}
+                    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                  >
+                    Close
+                  </Button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
         )}
-      </nav>
+      </AnimatePresence>
 
-      <main className="pt-24">
-        <Hero onSurveyOpen={() => setSurveyOpen(true)} />
-        <div id="agents"><AgentsSection expandedCard={expandedCard} setExpandedCard={setExpandedCard} /></div>
-        <div id="testimonials"><TestimonialsSection /></div>
-        {/* Add more main sections (FAQ, contact, etc.) as needed */}
-      </main>
+      {/* Contact Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-red-950/20 to-blue-950/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-5xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                Ready to Transform Your Business?
+              </span>
+            </h2>
+            <p className="text-xl text-slate-300 mb-12">
+              Contact us today to discover how our AI agents can revolutionize your operations and drive American
+              innovation.
+            </p>
 
-      {/* Footer */}
-      <footer id="contact" className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900 z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+              <motion.a
+                href="tel:561-201-4365"
+                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-red-600/20 to-red-800/20 backdrop-blur-sm border border-red-500/30 rounded-2xl hover:border-red-400/50 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Phone className="h-6 w-6 text-red-400" />
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Call Mike</div>
+                  <div className="text-lg font-semibold text-white">561-201-4365</div>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="mailto:contact@automari.ai"
+                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-600/20 to-blue-800/20 backdrop-blur-sm border border-blue-500/30 rounded-2xl hover:border-blue-400/50 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-6 w-6 text-blue-400" />
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Email us</div>
+                  <div className="text-lg font-semibold text-white">contact@automari.ai</div>
+                </div>
+              </motion.a>
+            </div>
+
+            <Button
+              size="lg"
+              onClick={() => setShowSurvey(true)}
+              className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+            >
+              <Sparkles className="mr-2 h-5 w-5" />
+              Start Your Assessment
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enhanced Footer */}
+      <footer className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900">
         <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 via-transparent to-blue-950/10" />
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -475,7 +522,8 @@ export default function AutomariWebsite() {
                 </span>
               </motion.div>
               <p className="text-slate-400 mb-6 leading-relaxed">
-                Powered by faith and diligence, Automari Agency is the trusted partner for AI-driven automation and operational excellence.
+                America's most trusted AI agency, streamlining business operations with cutting-edge automation
+                solutions.
               </p>
               <div className="flex justify-center md:justify-start space-x-4">
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
@@ -483,25 +531,26 @@ export default function AutomariWebsite() {
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
               </div>
             </div>
+
             {/* Contact Info */}
             <div className="text-center">
               <h4 className="text-xl font-semibold text-white mb-6">Get in Touch</h4>
               <div className="space-y-4">
                 <motion.a
-                  href="sms:5612014365"
+                  href="tel:561-201-4365"
                   className="flex items-center justify-center space-x-2 text-red-400 hover:text-red-300 transition-colors"
                   whileHover={{ scale: 1.05 }}
                 >
                   <Phone className="h-5 w-5" />
-                  <span className="text-lg">Text: 561-201-4365</span>
+                  <span className="text-lg">561-201-4365</span>
                 </motion.a>
                 <motion.a
-                  href="mailto:contactautomari@gmail.com"
+                  href="mailto:contact@automari.ai"
                   className="flex items-center justify-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
                   whileHover={{ scale: 1.05 }}
                 >
                   <Mail className="h-5 w-5" />
-                  <span className="text-lg">contactautomari@gmail.com</span>
+                  <span className="text-lg">contact@automari.ai</span>
                 </motion.a>
                 <div className="flex items-center justify-center space-x-2 text-slate-400">
                   <MapPin className="h-5 w-5" />
@@ -509,6 +558,7 @@ export default function AutomariWebsite() {
                 </div>
               </div>
             </div>
+
             {/* Quick Stats */}
             <div className="text-center md:text-right">
               <h4 className="text-xl font-semibold text-white mb-6">Our Impact</h4>
@@ -528,42 +578,10 @@ export default function AutomariWebsite() {
               </div>
             </div>
           </div>
-          {/* Futuristic Footer Navigation */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-left text-slate-200">
-            {[
-              { title: "Solutions", links: ["how-to", "success-stories", "templates", "partners", "exchange"] },
-              { title: "Company", links: ["about", "careers", "contact", "press", "terms", "privacy"] },
-              { title: "Resources", links: ["academy", "community", "help", "blog", "webinars", "security"] },
-              { title: "Legal & More", links: ["disclaimer", "bounty", "ethics", "learn-more"] }
-            ].map((col, idx) => (
-              <div key={col.title}>
-                <h5 className={`font-semibold text-lg mb-3 ${idx % 2 === 0 ? "text-blue-200" : "text-red-200"}`}>{col.title}</h5>
-                <ul className="space-y-2">
-                  {col.links.map(link => (
-                    <li key={link}>
-                      <button
-                        className="hover:text-blue-400 transition bg-transparent text-left w-full"
-                        onClick={() => setFooterModal(link)}
-                        style={{ outline: "none" }}
-                      >
-                        {link.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 flex flex-col md:flex-row items-center gap-4 justify-center">
-            <EmailLeadForm
-              cta="Stay In the Loop"
-              placeholder="Enter your email"
-              message="Get updates, tips, and exclusive offers from Automari."
-            />
-          </div>
+
           <div className="border-t border-slate-700/50 pt-8 text-center">
-            <p className="text-slate-300 text-base mb-4">
-              Empowering American businesses to thrive in the intelligent automation era. Tomorrow’s solutions, delivered today.
+            <p className="text-slate-500 text-sm mb-4">
+              © 2024 Automari. All rights reserved. Proudly serving American businesses with innovative AI solutions.
             </p>
             <div className="flex justify-center items-center space-x-2 text-xs text-slate-600">
               <span>🇺🇸</span>
@@ -571,20 +589,330 @@ export default function AutomariWebsite() {
               <span>•</span>
               <span>Powered by Innovation</span>
               <span>•</span>
-              <span>Driven by God</span>
+              <span>Driven by Excellence</span>
             </div>
           </div>
         </div>
-        <AnimatePresence>
-          {footerModal && (
-            <FooterModal link={footerModal} onClose={() => setFooterModal(null)} />
-          )}
-        </AnimatePresence>
       </footer>
-
-      <AnimatePresence>
-        {surveyOpen && <SurveyModal open={surveyOpen} onClose={() => setSurveyOpen(false)} />}
-      </AnimatePresence>
     </div>
   )
 }
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+                onClick={() => setShowSurvey(true)}
+              >
+                <Target className="mr-2 h-5 w-5" />
+                Find Your Pain Points
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-slate-400/30 bg-slate-800/20 backdrop-blur-sm hover:bg-slate-700/30 text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300"
+              >
+                Learn More
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* AI Agents Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                Our AI Agents
+              </span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Discover our specialized AI agents, each designed to tackle specific business challenges and drive
+              operational excellence across American enterprises.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {aiAgents.map((agent, index) => {
+              const IconComponent = agent.icon
+              const isExpanded = expandedCard === agent.id
+
+              return (
+                <motion.div
+                  key={agent.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <Card
+                    className={`relative overflow-hidden bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-md border border-slate-600/30 hover:border-slate-500/50 transition-all duration-500 cursor-pointer group ${
+                      isExpanded ? "scale-105 z-10" : ""
+                    }`}
+                    onClick={() => setExpandedCard(isExpanded ? null : agent.id)}
+                  >
+                    <div className="p-6">
+                      {/* Card Header */}
+                      <div className="flex items-start justify-between mb-4">
+                        <div
+                          className={`p-3 rounded-xl bg-gradient-to-r ${agent.color} bg-opacity-20 backdrop-blur-sm border border-slate-600/30`}
+                        >
+                          <IconComponent className="h-6 w-6 text-white" />
+                        </div>
+                        <motion.div animate={{ rotate: isExpanded ? 90 : 0 }} transition={{ duration: 0.3 }}>
+                          <ChevronRight className="h-5 w-5 text-slate-400" />
+                        </motion.div>
+                      </div>
+
+                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-red-300 transition-colors">
+                        {agent.title}
+                      </h3>
+
+                      <p className="text-slate-300 text-sm mb-4 line-clamp-2">{agent.description}</p>
+
+                      {/* Expanded Content */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="border-t border-slate-600/30 pt-4 mt-4"
+                          >
+                            <h4 className="text-sm font-semibold text-red-400 mb-3">Key Features:</h4>
+                            <ul className="space-y-2">
+                              {agent.features.map((feature, idx) => (
+                                <motion.li
+                                  key={idx}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ duration: 0.3, delay: idx * 0.1 }}
+                                  className="flex items-center text-sm text-slate-300"
+                                >
+                                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3" />
+                                  {feature}
+                                </motion.li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Glassmorphism overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-900/50 to-blue-900/30">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                Success Stories from South Florida
+              </span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              See how Mike and the Automari team have transformed local businesses across South Florida.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full bg-gradient-to-br from-slate-800/60 to-slate-900/80 backdrop-blur-md border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      {testimonial.avatar}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">{testimonial.name}</h4>
+                      <p className="text-sm text-slate-400">{testimonial.business}</p>
+                      <div className="flex items-center text-xs text-slate-500">
+                        <MapPin className="h-3 w-3 mr-1" />
+                        {testimonial.location}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+
+                  <p className="text-slate-300 text-sm leading-relaxed">"{testimonial.review}"</p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Survey Modal */}
+      <AnimatePresence>
+        {showSurvey && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-600/50 p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              {!surveySubmitted ? (
+                <>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent">
+                      Business Assessment
+                    </h3>
+                    <button
+                      onClick={() => setShowSurvey(false)}
+                      className="text-slate-400 hover:text-white transition-colors"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+
+                  <div className="mb-6">
+                    <div className="flex justify-between text-sm text-slate-400 mb-2">
+                      <span>
+                        Question {surveyStep + 1} of {surveyQuestions.length}
+                      </span>
+                      <span>{Math.round(((surveyStep + 1) / surveyQuestions.length) * 100)}% Complete</span>
+                    </div>
+                    <div className="w-full bg-slate-700 rounded-full h-2">
+                      <div
+                        className="bg-gradient-to-r from-red-500 to-blue-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${((surveyStep + 1) / surveyQuestions.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-lg font-semibold text-white mb-4">
+                      {currentQuestion.label}
+                      {currentQuestion.required && <span className="text-red-400 ml-1">*</span>}
+                    </label>
+
+                    {currentQuestion.type === "text" && (
+                      <Input
+                        placeholder={currentQuestion.placeholder}
+                        value={surveyData[currentQuestion.id] || ""}
+                        onChange={(e) => handleSurveyChange(currentQuestion.id, e.target.value)}
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder-slate-400"
+                      />
+                    )}
+
+                    {currentQuestion.type === "select" && (
+                      <select
+                        value={surveyData[currentQuestion.id] || ""}
+                        onChange={(e) => handleSurveyChange(currentQuestion.id, e.target.value)}
+                        className="w-full p-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white"
+                      >
+                        <option value="">Select an option...</option>
+                        {currentQuestion.options?.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {currentQuestion.type === "checkbox" && (
+                      <div className="space-y-3">
+                        {currentQuestion.options?.map((option) => (
+                          <label key={option} className="flex items-center space-x-3 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={(surveyData[currentQuestion.id] || []).includes(option)}
+                              onChange={(e) => {
+                                const current = surveyData[currentQuestion.id] || []
+                                const updated = e.target.checked
+                                  ? [...current, option]
+                                  : current.filter((item: string) => item !== option)
+                                handleSurveyChange(currentQuestion.id, updated)
+                              }}
+                              className="w-4 h-4 text-red-500 bg-slate-700 border-slate-600 rounded focus:ring-red-500"
+                            />
+                            <span className="text-slate-300">{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex justify-between">
+                    <Button
+                      variant="outline"
+                      onClick={() => setSurveyStep(Math.max(0, surveyStep - 1))}
+                      disabled={surveyStep === 0}
+                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                    >
+                      Previous
+                    </Button>
+
+                    {isLastStep ? (
+                      <Button
+                        onClick={handleSurveySubmit}
+                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                      >
+                        <Send className="mr-2 h-4 w-4" />
+                        Submit Assessment
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => setSurveyStep(surveyStep + 1)}
+                        className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                      >
+                        Next
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-8">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6"
+                  >
