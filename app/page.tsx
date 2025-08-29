@@ -121,32 +121,32 @@ const aiAgents = [
 
 const testimonials = [
   {
-    name: "Sarah Martinez",
+    name: "Martin Channing",
     business: "Miami Beach Boutique",
     location: "Miami Beach, FL",
     rating: 5,
     review:
-      "Mike and the Automari team transformed our customer service completely. Our response time went from hours to minutes, and customer satisfaction increased by 40%. Incredible results!",
+      "Mike and the Automari team transformed our customer service completely. Our response time went from hours to literally minutes, and customer satisfaction increased a good amount as well. Incredible results, very impressed with your work guys, keep it up and glad to be apart of Automari.ai!",
     avatar: "SM",
   },
   {
-    name: "Carlos Rodriguez",
-    business: "Rodriguez Construction",
-    location: "Fort Lauderdale, FL",
+    name: "Valencia Mendez",
+    business: "Vals Salon LLC",
+    location: "International",
     rating: 5,
     review:
-      "The scheduling automation agent has been a game-changer. We've eliminated double bookings and our project coordination is seamless. Mike's expertise made the transition effortless.",
+      "The scheduling automation agent has been a game-changer for my salons and myself. We we're able to eliminate double bookings and have my appointments/stress load be organized and managed without me having to lift a finger... We as a company are more than thrilled and will DEFINITELY be going with more of their agents to help with our business flow. 
     avatar: "CR",
   },
   {
-    name: "Jennifer Thompson",
+    name: "Brent Thompson",
     business: "Thompson Legal Services",
     location: "Boca Raton, FL",
     rating: 5,
     review:
-      "Automari's email management system handles 80% of our client inquiries automatically. It's like having a 24/7 assistant. Our productivity has skyrocketed since working with Mike.",
+      "Automari's email management system handles 80% of our client inquiries automatically. I tried other services but needed something or at least someone to rely on. Tried Automari's agents, to be fair I love my team but It's like having an extra 24/7 assistant, that never messes up. We're extremely grateful our first experience with Ai was with Automari, We're sticking with them. ",
     avatar: "JT",
-  },
+  }
   {
     name: "David Chen",
     business: "Chen's Restaurant Group",
@@ -157,12 +157,12 @@ const testimonials = [
     avatar: "DC",
   },
   {
-    name: "Maria Gonzalez",
+    name: "Monica & Partners",
     business: "Sunshine Marketing Agency",
     location: "Delray Beach, FL",
     rating: 5,
     review:
-      "Working with Automari has been transformative. The lead generation automation increased our qualified leads by 300%. Mike's strategic approach and technical expertise are unmatched.",
+      "Working with Automari has been transformative. The lead generation automation increased our qualified leads by roughly 300%, even higher at this point, just keeps growing. Artificial intelligence I think is the future and Automri is on top of their game. 
     avatar: "MG",
   },
 ]
