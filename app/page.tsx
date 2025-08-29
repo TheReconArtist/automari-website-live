@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import EmailAutomationDemo from "@/components/demos/EmailAutomationDemo"
 
 const aiAgents = [
   {
@@ -135,7 +136,7 @@ const testimonials = [
     location: "International",
     rating: 5,
     review:
-      "The scheduling automation agent has been a game-changer for my salons and myself. We we're able to eliminate double bookings and have my appointments/stress load be organized and managed without me having to lift a finger... We as a company are more than thrilled and will DEFINITELY be going with more of their agents to help with our business flow. 
+      "The scheduling automation agent has been a game-changer for my salons and myself. We we're able to eliminate double bookings and have my appointments/stress load be organized and managed without me having to lift a finger... We as a company are more than thrilled and will DEFINITELY be going with more of their agents to help with our business flow. ",
     avatar: "CR",
   },
   {
@@ -146,7 +147,7 @@ const testimonials = [
     review:
       "Automari's email management system handles 80% of our client inquiries automatically. I tried other services but needed something or at least someone to rely on. Tried Automari's agents, to be fair I love my team but It's like having an extra 24/7 assistant, that never messes up. We're extremely grateful our first experience with Ai was with Automari, We're sticking with them. ",
     avatar: "JT",
-  }
+  },
   {
     name: "David Chen",
     business: "Chen's Restaurant Group",
@@ -161,8 +162,7 @@ const testimonials = [
     business: "Sunshine Marketing Agency",
     location: "Delray Beach, FL",
     rating: 5,
-    review:
-      "Working with Automari has been transformative. The lead generation automation increased our qualified leads by roughly 300%, even higher at this point, just keeps growing. Artificial intelligence I think is the future and Automri is on top of their game. 
+    review: "Working with Automari has been transformative. The lead generation automation increased our qualified leads by roughly 300%, even higher at this point, just keeps growing. Artificial intelligence I think is the future and Automri is on top of their game. ",
     avatar: "MG",
   },
 ]
@@ -420,184 +420,6 @@ export default function AutomariWebsite() {
               Transform your business with our specialized AI agents designed to automate, optimize, and revolutionize
               your operations across America.
             </p>
-                    <CheckCircle className="h-10 w-10 text-white" />
-                  </motion.div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Assessment Complete!</h3>
-                  <p className="text-slate-300 mb-6">
-                    Thank you for completing our business assessment. Based on your responses, we'll prepare a
-                    customized automation strategy for your business.
-                  </p>
-                  <p className="text-lg font-semibold text-red-400 mb-6">
-                    Mike will personally review your assessment and contact you within 24 hours to schedule your
-                    discovery call.
-                  </p>
-                  <Button
-                    onClick={() => setShowSurvey(false)}
-                    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
-                  >
-                    Close
-                  </Button>
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Contact Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-red-950/20 to-blue-950/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-5xl font-bold mb-8">
-              <span className="bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
-                Ready to Transform Your Business?
-              </span>
-            </h2>
-            <p className="text-xl text-slate-300 mb-12">
-              Contact us today to discover how our AI agents can revolutionize your operations and drive American
-              innovation.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-              <motion.a
-                href="tel:561-201-4365"
-                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-red-600/20 to-red-800/20 backdrop-blur-sm border border-red-500/30 rounded-2xl hover:border-red-400/50 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Phone className="h-6 w-6 text-red-400" />
-                <div className="text-left">
-                  <div className="text-sm text-slate-400">Call Mike</div>
-                  <div className="text-lg font-semibold text-white">561-201-4365</div>
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="mailto:contact@automari.ai"
-                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-600/20 to-blue-800/20 backdrop-blur-sm border border-blue-500/30 rounded-2xl hover:border-blue-400/50 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Mail className="h-6 w-6 text-blue-400" />
-                <div className="text-left">
-                  <div className="text-sm text-slate-400">Email us</div>
-                  <div className="text-lg font-semibold text-white">contact@automari.ai</div>
-                </div>
-              </motion.a>
-            </div>
-
-            <Button
-              size="lg"
-              onClick={() => setShowSurvey(true)}
-              className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
-            >
-              <Sparkles className="mr-2 h-5 w-5" />
-              Start Your Assessment
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Enhanced Footer */}
-      <footer className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 via-transparent to-blue-950/10" />
-        <div className="relative max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            {/* Company Info */}
-            <div className="text-center md:text-left">
-              <motion.div
-                className="flex items-center justify-center md:justify-start space-x-3 mb-6"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="relative w-12 h-12">
-                  <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-contain" />
-                </div>
-                <span className="text-3xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
-                  Automari
-                </span>
-              </motion.div>
-              <p className="text-slate-400 mb-6 leading-relaxed">
-                America's most trusted AI agency, streamlining business operations with cutting-edge automation
-                solutions.
-              </p>
-              <div className="flex justify-center md:justify-start space-x-4">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                <div className="w-2 h-2 bg-slate-300 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="text-center">
-              <h4 className="text-xl font-semibold text-white mb-6">Get in Touch</h4>
-              <div className="space-y-4">
-                <motion.a
-                  href="tel:561-201-4365"
-                  className="flex items-center justify-center space-x-2 text-red-400 hover:text-red-300 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Phone className="h-5 w-5" />
-                  <span className="text-lg">561-201-4365</span>
-                </motion.a>
-                <motion.a
-                  href="mailto:contact@automari.ai"
-                  className="flex items-center justify-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Mail className="h-5 w-5" />
-                  <span className="text-lg">contact@automari.ai</span>
-                </motion.a>
-                <div className="flex items-center justify-center space-x-2 text-slate-400">
-                  <MapPin className="h-5 w-5" />
-                  <span>Serving South Florida</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="text-center md:text-right">
-              <h4 className="text-xl font-semibold text-white mb-6">Our Impact</h4>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-2xl font-bold text-red-400">500+</div>
-                  <div className="text-slate-400">Hours Saved Weekly</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-400">50+</div>
-                  <div className="text-slate-400">Businesses Automated</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-slate-300">99%</div>
-                  <div className="text-slate-400">Client Satisfaction</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-700/50 pt-8 text-center">
-            <p className="text-slate-500 text-sm mb-4">
-              © 2024 Automari. All rights reserved. Proudly serving American businesses with innovative AI solutions.
-            </p>
-            <div className="flex justify-center items-center space-x-2 text-xs text-slate-600">
-              <span>🇺🇸</span>
-              <span>Made in America</span>
-              <span>•</span>
-              <span>Powered by Innovation</span>
-              <span>•</span>
-              <span>Driven by Excellence</span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  )
-}
-
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               initial={{ opacity: 0, y: 20 }}
@@ -724,6 +546,9 @@ export default function AutomariWebsite() {
           </div>
         </div>
       </section>
+
+      {/* Email Automation Demo Section */}
+      <EmailAutomationDemo />
 
       {/* Testimonials Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-900/50 to-blue-900/30">
@@ -916,3 +741,180 @@ export default function AutomariWebsite() {
                     animate={{ scale: 1 }}
                     className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6"
                   >
+                    <CheckCircle className="h-10 w-10 text-white" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Assessment Complete!</h3>
+                  <p className="text-slate-300 mb-6">
+                    Thank you for completing our business assessment. Based on your responses, we'll prepare a
+                    customized automation strategy for your business.
+                  </p>
+                  <p className="text-lg font-semibold text-red-400 mb-6">
+                    Mike will personally review your assessment and contact you within 24 hours to schedule your
+                    discovery call.
+                  </p>
+                  <Button
+                    onClick={() => setShowSurvey(false)}
+                    className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                  >
+                    Close
+                  </Button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Contact Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-red-950/20 to-blue-950/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-5xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                Ready to Transform Your Business?
+              </span>
+            </h2>
+            <p className="text-xl text-slate-300 mb-12">
+              Contact us today to discover how our AI agents can revolutionize your operations and drive American
+              innovation.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+              <motion.a
+                href="tel:561-201-4365"
+                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-red-600/20 to-red-800/20 backdrop-blur-sm border border-red-500/30 rounded-2xl hover:border-red-400/50 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Phone className="h-6 w-6 text-red-400" />
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Call Mike</div>
+                  <div className="text-lg font-semibold text-white">561-201-4365</div>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="mailto:contact@automari.ai"
+                className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-600/20 to-blue-800/20 backdrop-blur-sm border border-blue-500/30 rounded-2xl hover:border-blue-400/50 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-6 w-6 text-blue-400" />
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Email us</div>
+                  <div className="text-lg font-semibold text-white">contact@automari.ai</div>
+                </div>
+              </motion.a>
+            </div>
+
+            <Button
+              size="lg"
+              onClick={() => setShowSurvey(true)}
+              className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+            >
+              <Sparkles className="mr-2 h-5 w-5" />
+              Start Your Assessment
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enhanced Footer */}
+      <footer className="relative border-t border-slate-700/50 py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 to-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 via-transparent to-blue-950/10" />
+        <div className="relative max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            {/* Company Info */}
+            <div className="text-center md:text-left">
+              <motion.div
+                className="flex items-center justify-center md:justify-start space-x-3 mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="relative w-12 h-12">
+                  <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-contain" />
+                </div>
+                <span className="text-3xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
+                  Automari
+                </span>
+              </motion.div>
+              <p className="text-slate-400 mb-6 leading-relaxed">
+                America's most trusted AI agency, streamlining business operations with cutting-edge automation
+                solutions.
+              </p>
+              <div className="flex justify-center md:justify-start space-x-4">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-slate-300 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="text-center">
+              <h4 className="text-xl font-semibold text-white mb-6">Get in Touch</h4>
+              <div className="space-y-4">
+                <motion.a
+                  href="tel:561-201-4365"
+                  className="flex items-center justify-center space-x-2 text-red-400 hover:text-red-300 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Phone className="h-5 w-5" />
+                  <span className="text-lg">561-201-4365</span>
+                </motion.a>
+                <motion.a
+                  href="mailto:contact@automari.ai"
+                  className="flex items-center justify-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Mail className="h-5 w-5" />
+                  <span className="text-lg">contact@automari.ai</span>
+                </motion.a>
+                <div className="flex items-center justify-center space-x-2 text-slate-400">
+                  <MapPin className="h-5 w-5" />
+                  <span>Serving South Florida</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="text-center md:text-right">
+              <h4 className="text-xl font-semibold text-white mb-6">Our Impact</h4>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-2xl font-bold text-red-400">500+</div>
+                  <div className="text-slate-400">Hours Saved Weekly</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-blue-400">50+</div>
+                  <div className="text-slate-400">Businesses Automated</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-300">99%</div>
+                  <div className="text-slate-400">Client Satisfaction</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-700/50 pt-8 text-center">
+            <p className="text-slate-500 text-sm mb-4">
+              © 2024 Automari. All rights reserved. Proudly serving American businesses with innovative AI solutions.
+            </p>
+            <div className="flex justify-center items-center space-x-2 text-xs text-slate-600">
+              <span>🇺🇸</span>
+              <span>Made in America</span>
+              <span>•</span>
+              <span>Powered by Innovation</span>
+              <span>•</span>
+              <span>Driven by Excellence</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
