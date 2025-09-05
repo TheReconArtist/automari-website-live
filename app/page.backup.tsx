@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
-import EmailAutomationDemo from "@/components/demos/EmailAutomationDemo"
+import { EmailAgentDemo } from "@/components/email-agent/EmailAgentDemo"
 
 const aiAgents = [
   {
@@ -301,7 +301,8 @@ export default function AutomariWebsite() {
           <div className="flex justify-between items-center h-16">
             <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
               <div className="relative w-10 h-10">
-                <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-contain" />
+                <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-cover rounded-full" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500/50 to-blue-500/50 blur-sm opacity-75 animate-pulse" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
                 Automari
@@ -400,9 +401,9 @@ export default function AutomariWebsite() {
                   src="/automari-logo.png"
                   alt="Automari 3D Logo"
                   fill
-                  className="object-contain drop-shadow-2xl"
+                  className="object-contain drop-shadow-2xl rounded-3xl"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-blue-500/20 rounded-3xl blur-xl animate-pulse" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-red-500/20 to-blue-500/20 blur-xl animate-pulse" />
               </motion.div>
             </div>
 
@@ -547,8 +548,12 @@ export default function AutomariWebsite() {
         </div>
       </section>
 
-      {/* Email Automation Demo Section */}
-      <EmailAutomationDemo />
+      {/* NEW Email Automation Agent Demo */}
+      <div className="relative w-full overflow-hidden flex justify-center py-20">
+        <div className="w-full max-w-md h-[90vh] md:h-[70vh] lg:h-[80vh] mx-auto border-4 border-slate-700 rounded-3xl shadow-xl overflow-hidden">
+          <EmailAgentDemo />
+        </div>
+      </div>
 
       {/* Testimonials Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-900/50 to-blue-900/30">
@@ -836,7 +841,8 @@ export default function AutomariWebsite() {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="relative w-12 h-12">
-                  <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-contain" />
+                  <Image src="/automari-logo.png" alt="Automari Logo" fill className="object-cover rounded-full" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500/50 to-blue-500/50 blur-sm opacity-75 animate-pulse" />
                 </div>
                 <span className="text-3xl font-bold bg-gradient-to-r from-red-400 via-slate-200 to-blue-400 bg-clip-text text-transparent">
                   Automari
@@ -918,3 +924,4 @@ export default function AutomariWebsite() {
     </div>
   )
 }
+
