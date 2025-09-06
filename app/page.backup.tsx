@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import {
   Phone,
@@ -24,12 +24,16 @@ import {
   MapPin,
   Target,
   Send,
+  Bot,
+  Minimize2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
-import { EmailAgentDemo } from "@/components/email-agent/EmailAgentDemo"
+import { EmailAgentDemo } from "@/components/email-agent/EmailAgentDemo" // Updated import for the new demo
+import MariMariChatbot from "@/components/Chatbot/MariMariChatbot"
+// import { useBackgroundFX } from "@/components/BackgroundFX/BackgroundFXContext"; // Removed old import
 
 const aiAgents = [
   {
@@ -165,6 +169,15 @@ const testimonials = [
     review: "Working with Automari has been transformative. The lead generation automation increased our qualified leads by roughly 300%, even higher at this point, just keeps growing. Artificial intelligence I think is the future and Automri is on top of their game. ",
     avatar: "MG",
   },
+  {
+    name: "Dr. Aliyah Rahman",
+    business: "Precision Health Clinic",
+    location: "Orlando, FL",
+    rating: 5,
+    review:
+      "Implementing Automari's AI for patient intake and record management has drastically cut down our administrative workload. The accuracy is phenomenal, and our staff can now focus more on patient care. It's truly a game-changer for healthcare efficiency!",
+    avatar: "AR",
+  },
 ]
 
 const surveyQuestions = [
@@ -247,6 +260,70 @@ const surveyQuestions = [
   },
 ]
 
+const FloatingLed = ({
+  scrollYProgress,
+  startYRatio, // Renamed from startY
+  endYRatio,   // Renamed from endY
+  color,
+  size,
+  delay,
+  initialXOffsetRatio, // New prop for random x offset ratio
+}: {
+  scrollYProgress: any;
+  startYRatio: number; 
+  endYRatio: number;   
+  color: string; 
+  size: string; 
+  delay: number; 
+  initialXOffsetRatio: number;
+}) => {
+  const [xPos, setXPos] = useState(0);
+  const [yPos, setYPos] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (elementRef.current && typeof window !== 'undefined') {
+      // Calculate actual x position based on window width
+      setXPos((initialXOffsetRatio * window.innerWidth) - (window.innerWidth / 2));
+      
+      // Calculate Y positions based on element's parent height (or viewport height)
+      const viewportHeight = window.innerHeight; // Use viewport height for consistent Y scaling
+      const startPx = startYRatio * viewportHeight;
+      const endPx = endYRatio * viewportHeight;
+      setYPos(startPx); // Initial Y position
+    }
+  }, [startYRatio, endYRatio, initialXOffsetRatio]);
+
+  const yTransform = useTransform(scrollYProgress, [0, 1], [`${yPos}px`, `${yPos + 200}px`]); // Offset Y based on scroll
+  const xDrift = useTransform(scrollYProgress, [0, 1], [0, Math.random() * 100 - 50]); // Subtle horizontal drift on scroll
+
+  return (
+    <motion.div
+      ref={elementRef}
+      className={`absolute rounded-full ${color} ${size} blur-sm opacity-75`}
+      style={{
+        x: xDrift, // Apply scroll-based drift
+        y: yTransform,
+        left: xPos, // Use calculated xPos for initial placement
+        transition: `opacity 0.5s ease-out ${delay}s`,
+      }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{
+        opacity: [0, 0.75, 0], // Pulsating opacity
+        scale: [0.5, 1, 0.5], // Pulsating size
+        rotate: [0, Math.random() * 360, 0], // Random rotation
+      }}
+      transition={{
+        duration: 8, 
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+        delay,
+      }}
+    />
+  );
+};
+
 export default function AutomariWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
@@ -256,6 +333,8 @@ export default function AutomariWebsite() {
   const [surveySubmitted, setSurveySubmitted] = useState(false)
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+
+  // const { triggerRipple } = useBackgroundFX(); // Removed old hook usage
 
   useEffect(() => {
     const handleScroll = () => {
@@ -280,15 +359,105 @@ export default function AutomariWebsite() {
   const currentQuestion = surveyQuestions[surveyStep]
   const isLastStep = surveyStep === surveyQuestions.length - 1
 
+  // Generate a fixed set of LED configurations for consistency and performance
+  const [ledConfigurations, setLedConfigurations] = useState<any[]>([]);
+
+  // Refactor FloatingLed to take random values and calculate position internally
+  const FloatingLed = ({
+    scrollYProgress,
+    startYRatio, 
+    endYRatio,   
+    color,
+    size,
+    delay,
+    initialXOffsetRatio, 
+  }: {
+    scrollYProgress: any;
+    startYRatio: number; 
+    endYRatio: number;   
+    color: string; 
+    size: string; 
+    delay: number; 
+    initialXOffsetRatio: number;
+  }) => {
+    const viewportWidth = useRef(0);
+    const viewportHeight = useRef(0);
+
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        viewportWidth.current = window.innerWidth;
+        viewportHeight.current = window.innerHeight;
+      }
+    }, []);
+
+    // Use ratios to determine start and end Y positions in pixels
+    const startYPx = startYRatio * viewportHeight.current;
+    const endYPx = endYRatio * viewportHeight.current;
+
+    // Animate Y position relative to scroll
+    const y = useTransform(scrollYProgress, [0, 1], [startYPx, endYPx + 200]); // Adds upward motion effect on scroll
+
+    // Animate X position relative to initial offset and a subtle drift
+    const x = useTransform(scrollYProgress, [0, 1], 
+      [(initialXOffsetRatio * viewportWidth.current) - (viewportWidth.current / 2), (initialXOffsetRatio * viewportWidth.current) - (viewportWidth.current / 2) + Math.random() * 100 - 50]
+    );
+    
+    return (
+      <motion.div
+        className={`absolute rounded-full ${color} ${size} blur-sm opacity-75`}
+        style={{
+          x,
+          y,
+          // Using x and y for positioning, `left` and `top` are not needed for this setup
+          transition: `opacity 0.5s ease-out ${delay}s`,
+        }}
+        initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
+        animate={{
+          opacity: [0, 0.75, 0], 
+          scale: [0.5, 1, 0.5], 
+          rotate: [0, Math.random() * 360, 0], 
+        }}
+        transition={{
+          duration: 8, 
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+          delay,
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') { // Ensure window is defined (client-side)
+      const configs = Array.from({ length: 30 }).map((_, i) => ({
+        startYRatio: Math.random(),
+        endYRatio: Math.random() * 0.5 + 0.5, 
+        color: i % 3 === 0 ? "bg-red-500" : i % 3 === 1 ? "bg-blue-500" : "bg-slate-400",
+        size: `w-${Math.floor(Math.random() * 3) + 1} h-${Math.floor(Math.random() * 3) + 1}`,
+        delay: Math.random() * 5, 
+        initialXOffsetRatio: Math.random(), 
+      }));
+      setLedConfigurations(configs);
+    }
+  }, []); 
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-x-hidden">
-      {/* Animated Background */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-950/90 via-blue-950/80 to-slate-900/90 text-white overflow-x-hidden"> {/* Adjusted for transparency */}
+      {/* Animated Background - Existing large blobs */}
       <motion.div className="fixed inset-0 opacity-20" style={{ y: backgroundY }}>
         <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 via-blue-900/20 to-slate-800/20 animate-pulse" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl animate-bounce" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-slate-400/5 rounded-full blur-2xl animate-float" />
       </motion.div>
+
+      {/* Futuristic Scrolling LED Background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {ledConfigurations.map((config, index) => (
+          <FloatingLed key={index} scrollYProgress={scrollYProgress} {...config} />
+        ))}
+      </div>
 
       {/* Navigation */}
       <motion.nav
@@ -431,6 +600,8 @@ export default function AutomariWebsite() {
                 size="lg"
                 className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
                 onClick={() => setShowSurvey(true)}
+                // onMouseEnter={() => triggerRipple(600)} // Removed old ripple trigger
+                // onFocus={() => triggerRipple(600)} // Removed old ripple trigger
               >
                 <Target className="mr-2 h-5 w-5" />
                 Find Your Pain Points
@@ -548,7 +719,7 @@ export default function AutomariWebsite() {
         </div>
       </section>
 
-      {/* NEW Email Automation Agent Demo */}
+      {/* NEW Email Automation Agent Demo - Integrated */}
       <div className="relative w-full overflow-hidden flex justify-center py-20">
         <div className="w-full max-w-md h-[90vh] md:h-[70vh] lg:h-[80vh] mx-auto border-4 border-slate-700 rounded-3xl shadow-xl overflow-hidden">
           <EmailAgentDemo />
@@ -724,6 +895,8 @@ export default function AutomariWebsite() {
                       <Button
                         onClick={handleSurveySubmit}
                         className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                        // onMouseEnter={() => triggerRipple(600)} // Removed old ripple trigger
+                        // onFocus={() => triggerRipple(600)} // Removed old ripple trigger
                       >
                         <Send className="mr-2 h-4 w-4" />
                         Submit Assessment
@@ -732,6 +905,8 @@ export default function AutomariWebsite() {
                       <Button
                         onClick={() => setSurveyStep(surveyStep + 1)}
                         className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                        // onMouseEnter={() => triggerRipple(600)} // Removed old ripple trigger
+                        // onFocus={() => triggerRipple(600)} // Removed old ripple trigger
                       >
                         Next
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -760,6 +935,8 @@ export default function AutomariWebsite() {
                   <Button
                     onClick={() => setShowSurvey(false)}
                     className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700"
+                    // onMouseEnter={() => triggerRipple(600)} // Removed old ripple trigger
+                    // onFocus={() => triggerRipple(600)} // Removed old ripple trigger
                   >
                     Close
                   </Button>
@@ -821,6 +998,8 @@ export default function AutomariWebsite() {
               size="lg"
               onClick={() => setShowSurvey(true)}
               className="bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white border-0 px-12 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-red-500/25 transition-all duration-300"
+              // onMouseEnter={() => triggerRipple(600)} // Removed old ripple trigger
+              // onFocus={() => triggerRipple(600)} // Removed old ripple trigger
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Start Your Assessment
@@ -921,7 +1100,9 @@ export default function AutomariWebsite() {
           </div>
         </div>
       </footer>
+
+      {/* Mari Mari Chatbot Integration */}
+      <MariMariChatbot />
     </div>
   )
 }
-
