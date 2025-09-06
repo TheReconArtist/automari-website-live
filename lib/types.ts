@@ -1,5 +1,7 @@
-export type EmailCategory = "leads" | "support" | "marketing" | "billing" | "priority";
+export type EmailCategory = "leads" | "support" | "marketing" | "billing" | "priority" | "spam";
 export type EmailTone = "Professional" | "Friendly" | "Brief";
+
+export const EMAIL_CATEGORIES: EmailCategory[] = ["leads", "support", "marketing", "billing", "priority", "spam"];
 
 export interface Email {
   id: string;
